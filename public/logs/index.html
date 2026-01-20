@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debug Logs</title>
+  <title>Birdy</title>
+  <link rel="icon" href="../static/logo/icon.png" type="image/png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/babel-standalone@6.26.0/babel.min.js"></script>
+</head>
+<body class="bg-gray-100">
+  <div id="root"></div>
+  <script type="text/babel">
+    const API_BASE_URL = 'https://xmkvtmgtwb.execute-api.us-east-1.amazonaws.com/dev/';
+    const FRONT_LOGS_ENDPOINT = `${API_BASE_URL}/api/get-front-logs`;
+    const BACK_LOGS_ENDPOINT = `${API_BASE_URL}/api/get-backlogs`;
+    
+    
+
+    function App() {
+      const [logs, setLogs] = React.useState([]);
+      
+      
+
+      const [isRefreshing, setIsRefreshing] = React.useState(false);
+      const [isDeleting, setIsDeleting] = React.useState(false);
+
+      // const fetchLogs = async () => {
+      //   try {
+      //     const response = await fetch(LOGS_ENDPOINT);
+      //     const data = await response.json();
+      //     setLogs(data);
+      //   } catch (error) {
+      //     console.error('Failed to fetch logs:', error);
+      //   }
+      // };
+
+      const fetchLogs = async () => {
+        try {
+          const [frontResponse, backResponse] = await Promise.all([
+            fetch(FRONT_LOGS_ENDPOINT),
+            fetch(BACK_LOGS_ENDPOINT)
+          ]);
+          const frontLogs = await frontResponse.json();
+          const backLogs = await backResponse.json();
+          const combinedLogs = [...frontLogs, ...backLogs]
+            .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+            .slice(0, 35);
+          setLogs(combinedLogs);
+        } catch (error) {
+          console.error('Failed to fetch logs:', error);
+        }
+      };
+
+      React.useEffect(() => {
+        fetchLogs();
+      }, []);
+
+      const copyLogsToClipboard = () => {
+        const logText = logs
+          .map((log) => `${log.timestamp}: ${JSON.stringify(log.message, null, 2)}`)
+          .join('\n');
+        navigator.clipboard.writeText(logText);
+      };
+
+      // const onRefresh = () => {
+      //   setRefreshing(true);
+      //   fetchLogs().finally(() => setRefreshing(false));
+      // };
+      const onRefresh = () => {
+        setIsRefreshing(true); // Use a dedicated state variable
+        fetchLogs().finally(() => setIsRefreshing(false));
+      };
+
+      // const onDelete = () => {
+      //   setRefreshing(true);
+      //   fetchLogs().finally(() => setRefreshing(false));
+      // };
+
+      const onDelete = async () => {
+          setIsDeleting(true); 
+          try {
+            const response = await fetch(`${API_BASE_URL}api/delete-logs`, {
+              method: 'DELETE',
+            });
+            if (response.ok) {
+              // If deletion is successful, fetch the logs again to show an empty state.
+              await fetchLogs();
+            } else {
+              console.error('Failed to delete logs:', response.statusText);
+              alert('Failed to delete logs. Please try again.');
+            }
+          } catch (error) {
+            console.error('Error deleting logs:', error);
+            alert('An error occurred while deleting logs.');
+          } finally {
+            setIsDeleting(false);
+          }
+        };
+
+
+      
+
+      return (
+        <div className="flex flex-col min-h-screen bg-white px-4 pb-4">
+         
+            <div className="flex items-center justify-between mb-2">
+            <h1 className="text-2xl font-bold text-gray-900">Log Viewer</h1>
+            <div className="flex space-x-2">
+              <button
+                className="inline-flex items-center px-3 py-1 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition disabled:opacity-50"
+                onClick={onRefresh}
+                disabled={isRefreshing}
+              >
+                {isRefreshing ? (
+                  <svg className="animate-spin h-4 w-4 mr-1 text-white" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l4-4-4-4v4a12 12 0 00-12 12h4z" />
+                  </svg>
+                ) : (
+                  <svg className="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h5m11 6v5h-5m-6-10l-4 4m0 0l4 4m-4-4h12" />
+                  </svg>
+                )}
+                Refresh
+              </button>
+
+              <button
+                className="inline-flex items-center px-3 py-1 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition disabled:opacity-50"
+                onClick={onDelete}
+                disabled={isDeleting}
+              >
+              {isDeleting ? (
+                        <svg className="animate-spin h-4 w-4 mr-1 text-white" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l4-4-4-4v4a12 12 0 00-12 12h4z" />
+                        </svg>
+                        ) : (
+                        <svg className="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 7h12M9 7v10m6-10v10M4 7h16l-1 12H5L4 7z" />
+                        </svg>
+                        )}
+                        Delete logs
+              </button>
+              
+            </div>
+          </div>
+
+          
+
+          {/* Logs Display */}
+          <div className="flex-1 mt-2 overflow-y-auto">
+            {logs.length === 0 ? (
+              <p className="text-gray-600">No logs available</p>
+            ) : (
+              logs.map((log, index) => (
+                <pre
+                  key={index}
+                  className="text-xs text-gray-700 mb-1.5 font-mono whitespace-pre-wrap"
+                >
+                  {new Date(log.timestamp).toLocaleString('en-US', { timeZone: 'America/New_York' })}: {JSON.stringify(log.message, null, 2)}
+                </pre>
+              ))
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>

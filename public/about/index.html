@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Birdy: The one stop for every service</title>
+    <link rel="icon" href="../static/logo/web-1024-1024.png" type="image/png" />
+
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous" /> 
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-BoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-Italic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-Light.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-LightItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraBold.ttf" as="font" type="font/ttf" crossorigin="anonymous" />   
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraBoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraLight.ttf" as="font" type="font/ttf" crossorigin="anonymous" />  
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraLightItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />  
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-SemiBold.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-SemiBoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Same styles as your index.html */
+        @font-face {
+            font-family: 'Nunito';
+            src: url('/themes/fonts/Nunito/Nunito-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Nunito';
+            src: url('/themes/fonts/Nunito/Nunito-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Nunito';
+            src: url('/themes/fonts/Nunito/Nunito-ExtraBold.ttf') format('truetype');
+            font-weight: 800;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --primary-color: #FF8C00;
+            --text-color: #333;
+            --light-gray: #f4f4f4;
+            --white: #fff;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--white);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+
+        /* Header & Footer from previous code */
+        header {
+            padding: 2rem 0;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            width: 40px;
+            height: 40px;
+            fill: var(--primary-color);
+        }
+
+        footer {
+            margin-top: 4rem;
+            padding: 2.5rem 0;
+            background: linear-gradient(to right, var(--primary-color), #FF6347, #FF4500);
+            color: var(--white);
+            font-size: 0.9rem;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .footer-links a:hover {
+            color: #f0f0f0;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            color: var(--white);
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* New About Us Section Styles */
+        .about-section {
+            padding: 3rem 0;
+        }
+
+        .about-section h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .about-section p {
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .team-members {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background-color: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .team-member h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Media Queries */
+        @media (min-width: 768px) {
+            .footer-links {
+                flex-direction: row;
+                justify-content: center;
+            }
+            .team-members {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="index.html" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24">
+                    <path d="M22.5,4.7c-0.3-0.2-0.7-0.3-1.1-0.3c-0.2,0-0.3,0-0.5,0.1c-0.2,0-0.4,0.1-0.6,0.2c-0.6,0.3-1,0.9-1,1.6c0,0.6,0.4,1.1,1.1,1.3c0.3,0.1,0.6,0.1,1,0.1c0.4,0,0.7,0,1,0c0.3-0.1,0.6-0.3,0.9-0.5c0.5-0.4,0.8-1,0.8-1.7c0-0.5-0.1-1-0.5-1.4c-0.2-0.2-0.5-0.4-0.8-0.5C22.6,4.7,22.6,4.7,22.5,4.7z M18.1,7.8C18,7.9,17.9,8,17.8,8c-0.3,0.2-0.7,0.3-1,0.3c-0.1,0-0.2,0-0.3,0c-0.2,0-0.4-0.1-0.6-0.2c-0.5-0.3-0.9-0.9-0.9-1.6c0-0.6,0.4-1.1,1-1.3c0.3-0.1,0.6-0.1,1-0.1c0.4,0,0.7,0,1,0c0.3,0.1,0.6,0.3,0.9,0.5c0.5,0.4,0.8,1,0.8,1.7c0,0.5-0.1,1-0.5,1.4C18.5,7.7,18.3,7.8,18.1,7.8z M12.5,13.6c-0.3-0.2-0.7-0.3-1.1-0.3c-0.2,0-0.3,0-0.5,0.1c-0.2,0-0.4,0.1-0.6,0.2c-0.6,0.3-1,0.9-1,1.6c0,0.6,0.4,1.1,1.1,1.3c0.3,0.1,0.6,0.1,1,0.1c0.4,0,0.7,0,1,0c0.3-0.1,0.6-0.3,0.9-0.5c0.5-0.4,0.8-1,0.8-1.7c0-0.5-0.1-1-0.5-1.4C12.6,13.7,12.6,13.7,12.5,13.6z M6.9,16.5C6.7,16.6,6.5,16.7,6.4,16.8c-0.3,0.2-0.7,0.3-1,0.3c-0.1,0-0.2,0-0.3,0c-0.2,0-0.4-0.1-0.6-0.2c-0.5-0.3-0.9-0.9-0.9-1.6c0-0.6,0.4-1.1,1-1.3c0.3-0.1,0.6-0.1,1-0.1c0.4,0,0.7,0,1,0c0.3,0.1,0.6,0.3,0.9,0.5c0.5,0.4,0.8,1,0.8,1.7c0,0.5-0.1,1-0.5,1.4C7.3,16.4,7.1,16.5,6.9,16.5z M23.5,23.3l-1.9-1.8c-0.2,0.1-0.5,0.3-0.8,0.3c-0.6,0-1-0.4-1.2-1c-0.1-0.3-0.1-0.6-0.1-1c0-0.4,0.1-0.7,0.3-1c0.1-0.2,0.3-0.4,0.5-0.6c0.4-0.3,0.9-0.5,1.5-0.5c0.6,0,1.1,0.2,1.5,0.5c0.3,0.2,0.5,0.4,0.7,0.7l0.1,0.1l-1.2-0.8l0.1,0.1c0.1-0.1,0.2-0.2,0.3-0.4c0.1-0.1,0.2-0.2,0.3-0.3l1.8,1.8c0.2-0.1,0.4-0.3,0.6-0.4c0.3-0.2,0.6-0.3,0.9-0.3c0.6,0,1,0.4,1.2,1c0.1,0.3,0.1,0.6,0.1,1c0,0.4-0.1,0.7-0.3,1c-0.1,0.2-0.3,0.4-0.5,0.6c-0.4,0.3-0.9,0.5-1.5,0.5c-0.6,0-1.1-0.2-1.5-0.5c-0.3-0.2-0.5-0.4-0.7-0.7l-0.1-0.1l1.2,0.8l-0.1-0.1C24,23.4,24.1,23.5,24.2,23.6c0.1,0.1,0.2,0.2,0.3,0.3L23.5,23.3z"></path>
+                </svg>
+                Birdy
+            </a>
+        </header>
+
+        <main>
+            <section class="about-section">
+                <h1>Why We Built Birdy</h1>
+                <p>
+                    We built BirdyOne because we used and worked on those big gig apps—and I was shocked at how much they take from workers (30-60%) while charging customers sky-high prices. It felt wrong.
+                </p>
+                <p>
+                    So we wanted to create a fairer alternative: workers keep 85-90%, clients pay less, everyone wins.
+                </p>
+
+                 <h1>Why the name Birdy</h1>
+                <p>
+                    We originally thought of 'Freedom App' or 'Free Birds' because workers should be free from those greedy commissions. But those names didn't feel natural to say: 'Let me get the Freedom App for plumbing?' Nah.
+                </p>
+                <p>
+                    Then we tested 'Birdy' with hundreds of people—workers, clients, especially women—and 99% lit up. It's cute, friendly, memorable, and the bird still nods to that idea of freedom: quick, independent, flying above the corporate nonsense.
+                </p>
+                <!-- <p>
+                    And the 'One' part? The 'One' says it all: BirdyOne is the one app for every service you need—gigs, plumbing, tutoring, rides, home-cooked food, rentals… all in one place. No more juggling apps!
+                </p> -->
+            </section>
+
+            <section class="about-section">
+                <h1>Our Story</h1>
+                <p>
+                    BirdyOne was born from frustration on both sides of the marketplace.
+As customers, we were fed up with sky-high prices and hidden fees for everyday services—like plumbing, rides, home-cooked food, or short-term rentals—where the cost felt exorbitant and the service often fell short.
+</p>
+                <p>
+As workers on those same big apps, we saw talented pros lose 30-40% (or more) of their earnings to corporate commissions, struggling despite customers paying premium rates.
+</p>
+                <p>
+It simply wasn’t fair: why should customers overpay just so workers get underpaid?
+That’s why we built BirdyOne—a better way for everyone.
+
+</p>
+                <p>
+Pros keep 85-90% of what they earn, staying motivated to do great work. We take far less, so customers get better service at lower prices.
+
+When workers are treated fairly, they show up happier and more reliable—delivering faster, friendlier, and more affordable experiences.
+</p>
+                <p>
+BirdyOne isn’t just another app. It’s a community where pros earn more and customers pay less.
+                </p>
+            </section>
+
+            <section class="about-section" style="background-color: var(--light-gray);">
+                <h1>Our Vision</h1>
+                <p>
+                    We envision a world where local communities thrive on their own terms. Birdy isn’t just an app—it’s a platform for local commerce, helping independent businesses grow and customers find quality service right in their neighborhood. We believe in transparency, fairness, and putting people before profit.
+                </p>
+
+                <h2>Meet the Team</h2>
+                <div class="team-members">
+                    <div class="team-member">
+                        <h3>Jay </h3>
+                        <p>Co-Founder</p>
+                        <p>Jay is the driving force behind Birdy's vision of fair and transparent service marketplaces. With a background in building consumer platforms, she's dedicated to empowering local professionals.</p>
+                    </div>
+                    <div class="team-member">
+                        <h3>Aaron</h3>
+                        <p>Co-Founder</p>
+                        <p>Aaron's expertise in technology and operations has been key to developing Birdy's seamless platform. He is passionate about creating a system that truly benefits the people who provide the services.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div class="container" style="padding: 0 1.5rem 2rem;">
+            <a href="https://apps.apple.com/app/your-app-id" class="app-store-btn">Download on the App Store</a>
+        </div>
+    </div>
+    
+     <footer style="color: white; text-align: center;">
+        <div class="container">
+            <ul class="footer-links" style="padding-bottom: 25px;">
+                <li><a href="/about">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+            </ul>
+            <p class="copyright">&copy; 2025 BirdyOne. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

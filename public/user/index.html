@@ -1,0 +1,180 @@
+<!--  fix  - add option for rider to provide their favorite music  so driver can tune in.  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver Professional Profile</title>
+  <link rel="icon" href="https://birdyone.com/static/logo/icon.png" type="image/png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous" /> 
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-BoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-Italic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-Light.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-LightItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraBold.ttf" as="font" type="font/ttf" crossorigin="anonymous" />   
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraBoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraLight.ttf" as="font" type="font/ttf" crossorigin="anonymous" />  
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraLightItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />  
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-SemiBold.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-SemiBoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+
+  <style>
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-BoldItalic.ttf') format('truetype');
+      font-weight: 700;
+      font-style: italic;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-Italic.ttf') format('truetype');
+      font-weight: 400;
+      font-style: italic;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-Light.ttf') format('truetype');
+      font-weight: 300;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-LightItalic.ttf') format('truetype');
+      font-weight: 300;
+      font-style: italic;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-ExtraBold.ttf') format('truetype');
+      font-weight: 800;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-ExtraBoldItalic.ttf') format('truetype');
+      font-weight: 800;
+      font-style: italic;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-ExtraLight.ttf') format('truetype');
+      font-weight: 200;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-ExtraLightItalic.ttf') format('truetype');
+      font-weight: 200;
+      font-style: italic;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-SemiBold.ttf') format('truetype');
+      font-weight: 600;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-SemiBoldItalic.ttf') format('truetype');
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    html, body {
+      font-family: 'Nunito', sans-serif;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+
+<body class="bg-gradient-to-b from-blue-50 to-white min-h-screen">
+  <header class="bg-blue-600 text-white py-6 shadow-lg">
+    <div class="container mx-auto px-4 text-center">
+      <h1 id="profile-name" class="text-4xl font-extrabold animate-pulse">Loading...</h1>
+      <p class="text-lg italic mt-2" id="profile-tagline">"Your Trusted Ride, Every Time!"</p>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-12">
+    <!-- Profile Section -->
+    <section class="flex flex-col md:flex-row items-center gap-8 mb-16">
+      <div class="w-48 h-48 rounded-full overflow-hidden shadow-xl border-4 border-blue-600">
+        <img id="profile-image" src="" alt="Driver Profile Picture" class="w-full h-full object-cover hidden">
+      </div>
+      <div class="text-center md:text-left">
+        <h2 class="text-3xl font-bold text-gray-800" id="about-title">About</h2>
+        <p id="about-description" class="text-gray-600 mt-4 max-w-lg">
+          <!-- Will be filled by JS -->
+        </p>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="bg-white p-8 rounded-lg shadow-lg">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-6 text-center">What Clients Say</h3>
+      <div class="space-y-6">
+        <div class="border-l-4 border-blue-600 pl-4">
+          <p class="text-gray-600 italic">"A truly reliable and courteous driver!"</p>
+          <p class="text-gray-800 font-semibold mt-2">- Happy Rider</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-blue-600 text-white py-6 mt-12">
+    <div class="container mx-auto px-4 text-center">
+      <p>© 2025 Birdy. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Fetch script -->
+  <script>
+    async function fetchProfileData() {
+      const path = window.location.pathname.replace(/^\/+/, ''); // e.g. 'rambo'
+      const nameEl = document.getElementById('profile-name');
+      const imgEl = document.getElementById('profile-image');
+      const aboutTitle = document.getElementById('about-title');
+      const aboutDesc = document.getElementById('about-description');
+
+      try {
+        const res = await fetch(`https://xmkvtmgtwb.execute-api.us-east-1.amazonaws.com/dev/${path}`);
+        if (!res.ok) throw new Error('Profile not found');
+
+        const data = await res.json();
+
+        nameEl.textContent = `${data.name || 'Unnamed'}'s Profile`;
+        if (data.image) {
+          imgEl.src = data.image;
+          imgEl.classList.remove('hidden');
+        }
+
+        aboutTitle.textContent = `About ${data.name?.split(' ')[0] || ''}`;
+        aboutDesc.textContent = `With ${data.yearsExperience || 'several'} years of driving experience, ${data.name?.split(' ')[0] || 'this driver'} is dedicated to providing safe, reliable, and friendly rides.`;
+
+      } catch (err) {
+        nameEl.textContent = '❌ Profile Not Found';
+        document.getElementById('profile-tagline').textContent = '';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', fetchProfileData);
+  </script>
+</body>
+</html>

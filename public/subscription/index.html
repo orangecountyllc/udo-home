@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birdy - Subscription Plans</title>
+
+  <link rel="icon" href="https://birdyone.com/static/logo/icon.png" type="image/png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Preload Nunito Fonts -->
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-BoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-Italic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-Light.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-LightItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraBold.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraBoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraLight.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraLightItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-SemiBold.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-SemiBoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+
+  <style>
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-BoldItalic.ttf') format('truetype');
+      font-weight: 700;
+      font-style: italic;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-Italic.ttf') format('truetype');
+      font-weight: 400;
+      font-style: italic;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-Light.ttf') format('truetype');
+      font-weight: 300;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-LightItalic.ttf') format('truetype');
+      font-weight: 300;
+      font-style: italic;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-ExtraBold.ttf') format('truetype');
+      font-weight: 800;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-ExtraBoldItalic.ttf') format('truetype');
+      font-weight: 800;
+      font-style: italic;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-ExtraLight.ttf') format('truetype');
+      font-weight: 200;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-ExtraLightItalic.ttf') format('truetype');
+      font-weight: 200;
+      font-style: italic;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-SemiBold.ttf') format('truetype');
+      font-weight: 600;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('/themes/fonts/Nunito/Nunito-SemiBoldItalic.ttf') format('truetype');
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    html, body {
+      font-family: 'Nunito', sans-serif;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body class="bg-blue-50 text-black">
+  <!-- Navbar -->
+  <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex-shrink-0">
+          <a href="/" class="text-2xl font-extrabold text-blue-900 tracking-tight">Birdy</a>
+        </div>
+        <div class="hidden md:flex space-x-8">
+          <a href="/" class="text-blue-900 hover:text-blue-600 font-semibold text-lg">Home</a>
+          <a href="#features" class="text-blue-900 hover:text-blue-600 font-semibold text-lg">Features</a>
+          <a href="#faq" class="text-blue-900 hover:text-blue-600 font-semibold text-lg">FAQ</a>
+          <a href="/contact" class="text-blue-900 hover:text-blue-600 font-semibold text-lg">Contact</a>
+        </div>
+        <div class="md:hidden">
+          <button id="menu-toggle" class="text-blue-900 focus:outline-none">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
+      <div class="px-4 pt-2 pb-3 space-y-1">
+        <a href="/" class="block text-blue-900 hover:text-blue-600 font-semibold text-lg">Home</a>
+        <a href="#features" class="block text-blue-900 hover:text-blue-600 font-semibold text-lg">Features</a>
+        <a href="#faq" class="block text-blue-900 hover:text-blue-600 font-semibold text-lg">FAQ</a>
+        <a href="/contact" class="block text-blue-900 hover:text-blue-600 font-semibold text-lg">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <section class="py-12 sm:py-20 bg-gradient-to-r from-blue-100 to-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white p-8 rounded-xl shadow-2xl">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-blue-900 mb-8 text-center">Choose Your Birdy Subscription</h1>
+        <h2 class="text-xl sm:text-2xl text-blue-900 font-light mb-8 text-center">Find the perfect plan to enhance your Birdy experience.</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Free Plan -->
+          <div class="bg-blue-50 border border-gray-200 rounded-lg p-6 text-center">
+            <h3 class="text-2xl font-bold text-blue-900 mb-4">Free</h3>
+            <p class="text-3xl font-extrabold text-blue-900 mb-4">$0 <span class="text-lg font-normal text-gray-600">/ month</span></p>
+            <p class="text-gray-600 mb-6">Free forever, no credit card required</p>
+            <ul class="text-left text-gray-600 mb-6 space-y-2">
+              <li class="flex items-center"><svg class="h-5 w-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg> Basic ride booking</li>
+              <li class="flex items-center"><svg class="h-5 w-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg> Profile creation</li>
+              <li class="flex items-center"><svg class="h-5 w-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg> Community access</li>
+            </ul>
+            <a href="/signup/free" class="block bg-blue-900 text-white font-semibold py-3 px-6 rounded-full hover:bg-blue-600 transition duration-300">Get Started</a>
+          </div>
+
+          <!-- Standard Plan -->
+          <div class="bg-blue-50 border-2 border-blue-600 rounded-lg p-6 text-center relative">
+            <span class="absolute top-0 right-0 bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-bl-lg rounded-tr-lg">Most Popular</span>
+            <h3 class="text-2xl font-bold text-blue-900 mb-4">Standard</h3>
+            <p class="text-3xl font-extrabold text-blue-900 mb-4">$10 <span class="text-lg font-normal text-gray-600">/ month</span></p>
+            <p class="text-gray-600 mb-6">Everything in Free, plus location tracking</p>
+            <ul class="text-left text-gray-600 mb-6 space-y-2">
+              <li class="flex items-center"><svg class="h-5 w-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg> All Free features</li>
+              <li class="flex items-center"><svg class="h-5 w-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg> Exact location tracking</li>
+              <li class="flex items-center"><svg class="h-5 w-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg> Top of the list in local searches</li>
+            </ul>
+            <a href="/signup/standard" class="block bg-blue-900 text-white font-semibold py-3 px-6 rounded-full hover:bg-blue-600 transition duration-300">Choose Standard</a>
+          </div>
+
+          <!-- Premium Plan -->
+          <div class="bg-blue-50 border border-gray-200 rounded-lg p-6 text-center">
+            <h3 class="text-2xl font-bold text-blue-900 mb-4">Premium</h3>
+            <p class="text-3xl font-extrabold text-blue-900 mb-4">Contact Us <span class="text-lg font-normal text-gray-600">/ month</span></p>
+            <p class="text-gray-600 mb-6">All Standard features, plus premium benefits</p>
+            <ul class="text-left text-gray-600 mb-6 space-y-2">
+              <li class="flex items-center"><svg class="h-5 w-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg> All Standard features</li>
+              <li class="flex items-center"><svg class="h-5 w-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg> Priority support</li>
+              <li class="flex items-center"><svg class="h-5 w-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg> Background checks</li>
+              <li class="flex items-center"><svg class="h-5 w-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg> Verified ID</li>
+              <li class="flex items-center"><svg class="h-5 w-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg> Advanced analytics</li>
+            </ul>
+            <a href="/contact" class="block bg-blue-900 text-white font-semibold py-3 px-6 rounded-full hover:bg-blue-600 transition duration-300">Contact for Pricing</a>
+          </div>
+        </div>
+       
+       <br>
+        <p> <b> From Our Heart to Yours</b>
+          <br/><br/>
+          Birdy was built for one reason — you.
+          <br/>
+          This isn’t just an app. It’s your  listing platform, your clients, and your community. We simply provide the tools to help people find you — and we’re here to support you.
+          <br/><br/>
+           
+
+          We know how hard you work. You’re not just drivers — you’re professionals, providers, and people with families, dreams, and hustle. We’re not here to take advantage of that. We’re here to help amplify it.
+          <br/><br/>
+          To give riders a reliable way to find and connect with you, we use tools and tech that come with real costs. But no driver should ever be left out because of money.
+          <br/><br/>
+          If you’re going through a tough time, just email us. We’ll gladly cover your subscription until you’re back on your feet. No questions asked.
+          
+          We can’t build Birdy without you — and honestly, we wouldn’t want to.
+          <br/><br/>
+          With gratitude,
+          The Birdy Team
+        </p>
+      </div>
+      
+    </div>
+
+    
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-blue-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-2xl font-bold mb-4">Birdy</h3>
+          <p class="font-light text-lg">Your trusted birdy, just one tap away.</p>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2 font-light text-lg">
+            <li><a href="/" class="hover:text-blue-300">Home</a></li>
+            <li><a href="/contact" class="hover:text-blue-300">Contact</a></li>
+            <li><a href="/privacy" class="hover:text-blue-300">Privacy</a></li>
+            <li><a href="/Drivers" class="hover:text-blue-300">Drivers</a></li>
+            <li><a href="/Riders" class="hover:text-blue-300">Riders</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold mb-4">Contact Us</h3>
+          <p class="font-light text-lg">
+            Email: <a href="mailto:getabirdy@gmail.com" class="text-blue-600 hover:underline">getabirdy@gmail.com</a>
+          </p>
+        </div>
+      </div>
+      <div class="mt-8 text-center">
+        <p class="font-light text-lg">© 2025 Birdy. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Mobile Menu Toggle
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

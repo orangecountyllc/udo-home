@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birdy: The one stop for every service</title>
+  <!-- <link rel="icon" href="static/logo/icon.png" type="image/png" /> -->
+  <link rel="icon" href="static/logo/birdy-1024.png" type="image/png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous" /> 
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-BoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-Italic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-Light.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-LightItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraBold.ttf" as="font" type="font/ttf" crossorigin="anonymous" />   
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraBoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraLight.ttf" as="font" type="font/ttf" crossorigin="anonymous" />  
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraLightItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />  
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-SemiBold.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" href="/themes/fonts/Nunito/Nunito-SemiBoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta name="msvalidate.01" content="9608B688896A42D8210BEBCAC79C6D0A" />
+  <link rel="stylesheet" href="static/css/birdy.css">
+  <link rel="stylesheet" href="static/css/fonts.css">
+  
+</head>
+<body class="bg-orange-50 text-black">
+  <!-- Navbar -->
+  <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex-shrink-0">
+          <a href="/" class="text-2xl font-extrabold orange-title tracking-tight">Birdy</a>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <span id="userInfo" class="text-yellow-900 font-semibold text-lg"></span>
+          <a href="/" class="text-yellow-900 hover:text-yellow-700 font-semibold text-lg">Home</a>
+          <a href="#features" class="text-yellow-900 hover:text-yellow-700 font-semibold text-lg">Features</a>
+          <a href="#faq" class="text-yellow-900 hover:text-yellow-700 font-semibold text-lg">FAQ</a>
+          <div id="authButton" class="flex items-center"></div>
+        </div>
+        <div class="md:hidden">
+          <button id="menu-toggle" class="text-yellow-900 focus:outline-none">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
+      <div class="px-4 pt-2 pb-3 space-y-1">
+        <span id="userInfoMobile" class="block text-yellow-900 font-semibold text-lg"></span>
+        <a href="/" class="block text-yellow-900 hover:text-yellow-700 font-semibold text-lg">Home</a>
+        <a href="#features" class="block text-yellow-900 hover:text-yellow-700 font-semibold text-lg">Features</a>
+        <a href="#faq" class="block text-yellow-900 hover:text-yellow-700 font-semibold text-lg">FAQ</a>
+        <div id="authButtonMobile" class="block"></div>
+      </div>
+    </div>
+  </nav>
+  <!-- Hero Section -->
+  <section id="home" class="py-12 sm:py-20 bg-gradient-to-r from-orange-100 to-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 text-center md:text-left">
+          <h1 class="text-4xl sm:text-5xl font-extrabold  mb-4 tracking-tight leading-tight  orange-title">
+            <!-- Welcome,  -->
+            Birdy Will Do It!
+          </h1>
+          <p id="hero-tagline" class="text-xl sm:text-2xl font-light text-black mb-6 leading-relaxed" style="min-height: 5rem;">
+            Connect directly with local driving pros — no middlemen, no fees — grow your own trusted network — and keep more in your pocket.
+          </p>
+          <a href="#features" class="inline-block bg-orange-600 text-white px-8 py-4 rounded-full hover:bg-orange-700 transition font-semibold text-lg shadow-md">Learn More</a>
+        </div>
+        <div class="md:w-1/2 mt-8 md:mt-0">
+          <img src="../img/girl4.png" alt="Hero Image" class="rounded-xl shadow-2xl w-full">
+        </div> 
+      </div>
+    </div>
+  </section>
+  <!-- Plans Section -->
+  <section class="py-12 sm:py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center"></div>
+      <div class="max-w-4xl mx-auto">
+        <div id="features" class="flex flex-col sm:flex-row justify-center gap-8">
+          <div class="text-left w-full sm:w-1/2 relative sm:pr-12 pl-6 sm:pl-0 sm:border-r sm:border-gray-300">
+            <p class="text-sm text-gray-500 uppercase mb-6 font-semibold"> Why Pay More?</p>
+            <h3 class="text-3xl font-bold mb-2 orange-title">Benefits For Customers </h3>
+            <p class="text-4xl font-extrabold text-orange-700 mb-6"> No Fee</p>
+            <div class="pl-2 sm:pl-0">
+              <ul class="text-left mb-4 space-y-2 font-light text-lg max-w-md">
+                <div style="display: flex; align-items: flex-start;">
+                  <span style="margin-right: 8px;">•</span>
+                  <span> We generally cost <a href="/clients" class="text-orange-600 font-semibold hover:bg-orange-100 hover:text-orange-800 transition duration-300 rounded px-1 no-underline">less</a> than big-name apps
+                      
+                  <br/> </span>
+                </div>  
+                <div style="display: flex; align-items: flex-start;">
+                  <span style="margin-right: 8px;">•</span>
+                  <span>Traditional apps often underpay workers, forcing them to work long hours — which can lead to tired, less focused drivers. You communicate and coordinate directly with drivers — no middleman.  </span>
+                </div> 
+                <div style="display: flex; align-items: flex-start;">
+                  <span style="margin-right: 8px;">•</span>
+                  <span>Save and reconnect with your favorite birdy whenever you need. </span>
+                </div> 
+                <div style="display: flex; align-items: flex-start;">
+                  <span style="margin-right: 8px;">•</span>
+                  <span> Enjoy a trusted, personalized service by choosing Birdys recommended by your friends.
+                  </span>
+                </div>
+                
+                <!-- <div style="display: flex; align-items: flex-start;">
+                  <span style="margin-right: 8px;">•</span>
+                  <span>The system automatically pings your preferred __; if unavailable, book another trusted pro with one tap.</span>
+                </div> -->
+                <div style="display: flex; align-items: flex-start;">
+                  <span style="margin-right: 8px;">•</span>
+                  <span>I need more convincing <a href="/clients" class="text-orange-600 font-semibold hover:bg-orange-100 hover:text-orange-800 transition duration-300 rounded px-1 no-underline">why</a> - I should choose this over other options?</span>
+                </div>  
+              </ul>
+            </div>
+            <a href="https://apps.apple.com/app/your-app-id" class="inline-block bg-orange-900 text-white px-6 py-3 rounded-full hover:bg-orange-800 transition font-semibold text-lg shadow-md">Get the App</a>
+          </div>
+          <div class="text-left w-full sm:w-1/2 sm:pl-12 pl-6">
+            <p class="text-sm  orange-sec-2 uppercase mb-6 font-semibold">Promotional Offer </p>
+            <h3 class="text-3xl font-bold mb-2 orange-title">Professionals: Get Paid More. Fly Free.</h3>
+            <!-- <p class="text-4xl font-extrabold text-purple-700 mb-6"> 50¢ per ride</p> -->
+            <ul class="text-left mb-4 space-y-2 font-light text-lg max-w-md">
+              <div style="display: flex; align-items: flex-start;">
+                <span style="margin-right: 8px;">•</span>
+                <span>You Keep More. Not the Big Apps.</span>
+              </div>
+
+              <div style="display: flex; align-items: flex-start;">
+                <span style="margin-right: 8px;">•</span>
+                <span>Earn more. Live more.</span>
+              </div>
+              
+              <div style="display: flex; align-items: flex-start;">
+                <span style="margin-right: 8px;">•</span>
+                <span>
+                  Create a professional <a href="/profile" class="text-orange-600 font-semibold hover:bg-orange-100 hover:text-orange-800 transition duration-300 rounded px-1 no-underline">professional profile</a> to stand out and build trust with new clients.
+                </span>
+              </div>
+              <div style="display: flex; align-items: flex-start;">
+                <span style="margin-right: 8px;">•</span>
+                <span>Make yourself discoverable — let people see your reviews, availability, and story.</span>
+              </div> 
+              <div style="display: flex; align-items: flex-start;">
+                <span style="margin-right: 8px;">•</span>
+                <span> Be your own boss and set your own terms. Fly free from big apps</span>
+              </div> 
+              <!-- <div style="display: flex; align-items: flex-start;">
+                <span style="margin-right: 8px;">•</span>
+                <span>Share your background and values to attract clients who appreciate your service.</span>
+              </div> -->
+              <!-- <div style="display: flex; align-items: flex-start;">
+                <span style="margin-right: 8px;">•</span>
+                <span>Go offline whenever you want — clients can still find others nearby.</span>
+              </div> -->
+              <!-- <div style="display: flex; align-items: flex-start;">
+                <span style="margin-right: 8px;">•</span>
+                <span>Low monthly fee — even lower when you refer others. (Join early and get noticed before any fees begin.) </span>
+              </div> -->
+              <div style="display: flex; align-items: flex-start;">
+                <span style="margin-right: 8px;">•</span>
+                <span> <a href="/Compare" class="text-orange-600 font-semibold hover:bg-orange-100 hover:text-orange-800 transition duration-300 rounded px-1 no-underline">Compare earnings </a>: Keep more by listing yourself on Birdy </span>
+              </div>
+              <div style="display: flex; align-items: flex-start;">
+                <span style="margin-right: 8px;">•</span>
+                <span>Claim your unique <a href="/get-handle" class="text-orange-600 font-semibold hover:bg-orange-100 hover:text-orange-800 transition duration-300 rounded px-1 no-underline">username </a> before its taken!  </span>
+              </div>
+            </ul>
+            <a href="/Drivers" class="inline-block bg-purple-700 text-white px-6 py-3 rounded-full hover:bg-purple-600 transition font-semibold text-lg shadow-md">Sign me up </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Phone Preview Section -->
+
+
+  <!-- <section class="py-12 sm:py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="features" class="flex flex-col sm:flex-row justify-center gap-8">
+        <div class="w-full max-w-screen-xl mx-auto px-4">
+          <div class="relative overflow-hidden">
+            <div id="carousel" class="flex transition-transform duration-500 ease-in-out">
+              <div class="flex-none w-1/3 px-2">
+                <img src="./static/screenshots/nearby.png" alt="iPhone Screenshot 1" class="w-full h-auto object-cover rounded-lg">
+              </div>
+              <div class="flex-none w-1/3 px-2">
+                <img src="./static/screenshots/PvtDrivers.jpeg" alt="iPhone Screenshot 2" class="w-full h-auto object-cover rounded-lg">
+              </div> 
+            </div>
+            <button id="prevBtn" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full opacity-75 hover:opacity-100">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+            <button id="nextBtn" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full opacity-75 hover:opacity-100">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+
+
+  <!-- Reviews Section -->
+  <section class="py-12 sm:py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold orange-title mb-2">What Our Users Say</h2>
+        <p class="text-xl font-light text-gray-600 mb-8">Real feedback from our valued professionals and their clients</p>
+        <swiper-container class="mySwiper" 
+          pagination="true" 
+          pagination-clickable="true" 
+          slides-per-view="1" 
+          breakpoints='{
+            "640": {"slidesPerView": 2, "spaceBetween": 20},
+            "1024": {"slidesPerView": 3, "spaceBetween": 30}
+          }' 
+          space-between="30" 
+          grab-cursor="true" 
+          autoplay='{"delay": 5000, "disableOnInteraction": true}'>
+          <swiper-slide>
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md" style="min-height: 400px; display: flex; flex-direction: column; justify-content: space-between;">
+              <p class="text-lg font-light text-gray-700 italic mb-4">“I hate how regular big name apps just send random people. I want someone I know. With this, I finally get to stick with my own trusted workers.”</p>
+              <div class="flex items-center justify-center">
+                <div class="w-12 h-12 rounded-full bg-purple-700 text-white flex items-center justify-center font-bold text-xl mr-3">LK</div>
+                <div>
+                  <p class="font-semibold text-yellow-900">— Tom S., Arlington.</p>
+                  <p class="text-sm text-gray-500">Client, Arlington</p>
+                </div>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide>
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md" style="min-height: 400px; display: flex; flex-direction: column; justify-content: space-between;">
+              <p class="text-lg font-light text-gray-700 italic mb-4">“Tired of paying crazy prices to big apps? With Birdy, you can have peace of mind knowing that most of your payment goes to the person doing the work—not to a large corporation.”</p>
+              <div class="flex items-center justify-center">
+                <div class="w-12 h-12 rounded-full bg-purple-700 text-white flex items-center justify-center font-bold text-xl mr-3">LK</div>
+                <div>
+                  <p class="font-semibold text-yellow-900">— Darnell H., Jersey City</p>
+                  <p class="text-sm text-gray-500">Client, Jersey City</p>
+                </div>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide>
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md" style="min-height: 400px; display: flex; flex-direction: column; justify-content: space-between;">
+              <p class="text-lg font-light text-gray-700 italic mb-4">“I love that this service eliminates surprises — no more people I don’t know showing up. It feels safer and more personal.”</p>
+              <div class="flex items-center justify-center">
+                <div class="w-12 h-12 rounded-full bg-purple-700 text-white flex items-center justify-center font-bold text-xl mr-3">LK</div>
+                <div>
+                  <p class="font-semibold text-yellow-900"> — Lisa K., Rider.</p>
+                </div>
+              </div>
+            </div>
+          </swiper-slide>
+        </swiper-container>
+      </div>
+    </div>
+  </section>
+  <!-- FAQ Section -->
+   
+  <section id="faq" class="py-12 sm:py-20 bg-orange-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-yellow-900 text-center mb-12 tracking-tight">Frequently Asked Questions</h2>
+      <div class="space-y-4">
+        <div class="bg-white rounded-lg shadow-lg">
+          <button class="w-full text-left p-6 flex justify-between items-center focus:outline-none" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('svg').classList.toggle('rotate-180');">
+            <h3 class="text-2xl text-yellow-900">What makes Birdy unique?</h3>
+            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="hidden px-6 pb-6">
+            <p class="font-light text-lg">Birdy lets you personally curate a list of trusted pros and people you know—giving you a consistent, high-quality experience with people you trust. 
+            </p>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg">
+          <button class="w-full text-left p-6 flex justify-between items-center focus:outline-none" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('svg').classList.toggle('rotate-180');">
+            <h3 class="text-2xl text-yellow-900">How will I know the price of a task?</h3>
+            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="hidden px-6 pb-6">
+            <p class="font-light text-lg">
+            Each Birdy sets their own rates. You can see their rate card and contact them directly to agree on a price.
+            </p>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg">
+          <button class="w-full text-left p-6 flex justify-between items-center focus:outline-none" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('svg').classList.toggle('rotate-180');">
+            <h3 class="text-2xl text-yellow-900">How do I pay my Birdy?</h3>
+            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="hidden px-6 pb-6">
+            <p class="font-light text-lg">
+            Paying your Birdy is simple and secure. You can use a credit card, debit card, or connect your bank account via ACH to pay directly through the app. Our seamless system ensures a safe and easy transaction every time.
+            </p>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg">
+          <button class="w-full text-left p-6 flex justify-between items-center focus:outline-none" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('svg').classList.toggle('rotate-180');">
+            <h3 class="text-2xl text-yellow-900">How can I get started?</h3>
+            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="hidden px-6 pb-6">
+            <p class="font-light text-lg">
+            Just sign up on the app, and let customers discover you and reach out directly.
+            </p>
+          </div>
+        </div>
+        <!-- <div class="bg-white rounded-lg shadow-lg">
+          <button class="w-full text-left p-6 flex justify-between items-center focus:outline-none" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('svg').classList.toggle('rotate-180');">
+            <h3 class="text-2xl text-yellow-900">Is there a free trial available?</h3>
+            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="hidden px-6 pb-6">
+            <p class="font-light text-lg">
+            Yes, we offer a 14-day free trial so you can explore all features without any commitment.
+            </p>
+          </div>
+        </div> -->
+        <div class="bg-white rounded-lg shadow-lg">
+          <button class="w-full text-left p-6 flex justify-between items-center focus:outline-none" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('svg').classList.toggle('rotate-180');">
+            <h3 class="text-2xl text-yellow-900">Is there Customer Support available?</h3>
+            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="hidden px-6 pb-6">
+            <p class="font-light text-lg">
+              Yes
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Contact Form Section -->
+  <section id="contact" class="py-12 sm:py-20 bg-gradient-to-r from-orange-100 to-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-yellow-900 mb-8 text-center">Stay in Touch with Birdy</h2>
+      <p class="text-lg sm:text-xl text-gray-600 mb-8 text-center max-w-2xl mx-auto">Join the Birdy vibe—connect with us!</p>
+      <div class="hidden md:block bg-white p-8 rounded-xl shadow-2xl">
+        <form id="userInfoForm" class="flex flex-row gap-4">
+          <div class="flex-1">
+            <label for="name" class="block text-gray-600 font-semibold mb-2">Name <span class="text-red-500">*</span></label>
+            <input type="text" id="name" required class="w-full p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600 transition-all duration-300 hover:border-purple-300" placeholder="Your Name">
+          </div>
+          <div class="flex-1">
+            <label for="email" class="block text-gray-600 font-semibold mb-2">Email <span class="text-red-500">*</span></label>
+            <input type="email" id="email" required class="w-full p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600 transition-all duration-300 hover:border-purple-300" placeholder="your@email.com">
+          </div>
+          <div class="flex-1">
+            <label for="phone" class="block text-gray-600 font-semibold mb-2">Phone</label>
+            <input type="tel" id="phone" class="w-full p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600 transition-all duration-300 hover:border-purple-300" placeholder="Your Phone Number" maxlength="12">
+          </div>
+          <div class="flex-1">
+            <label for="comment" class="block text-gray-600 font-semibold mb-2">Comment (Optional)</label>
+            <input type="text" id="comment" class="w-full p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600 transition-all duration-300 hover:border-purple-300" placeholder="Your Thoughts">
+          </div>
+          <div class="flex items-end">
+            <button type="submit" class="bg-orange-600 text-white font-semibold px-6 py-3 rounded-full hover:bg-orange-700 transition-all duration-300 shadow-md hover:shadow-lg">Submit</button>
+          </div>
+        </form>
+      </div>
+      <div class="md:hidden text-center">
+        <button id="toggle-form" class="bg-orange-600 text-white font-semibold px-8 py-4 rounded-full hover:bg-orange-700 transition-all duration-300 shadow-md hover:shadow-lg">Join the Flock!</button>
+        <form id="mobileUserInfoForm" class="hidden flex-col gap-4 mt-4">
+          <div class="bg-white p-6 rounded-xl shadow-2xl">
+            <div class="flex flex-col gap-4">
+              <div>
+                <label for="mobile-name" class="block text-gray-600 font-semibold mb-2">Name <span class="text-red-500">*</span></label>
+                <input type="text" id="mobile-name" required class="w-full p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600 transition-all duration-300 hover:border-purple-300" placeholder="Your Name">
+              </div>
+              <div>
+                <label for="mobile-email" class="block text-gray-600 font-semibold mb-2">Email <span class="text-red-500">*</span></label>
+                <input type="email" id="mobile-email" required class="w-full p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600 transition-all duration-300 hover:border-purple-300" placeholder="your@email.com">
+              </div>
+              <div>
+                <label for="mobile-phone" class="block text-gray-600 font-semibold mb-2">Phone</label>
+                <input type="tel" id="mobile-phone" class="w-full p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600 transition-all duration-300 hover:border-purple-300" placeholder="Your Phone Number" maxlength="12">
+              </div>
+              <div>
+                <label for="mobile-comment" class="block text-gray-600 font-semibold mb-2">Comment (Optional)</label>
+                <input type="text" id="mobile-comment" class="w-full p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600 transition-all duration-300 hover:border-purple-300" placeholder="Your Thoughts">
+              </div>
+              <button type="submit" class="bg-orange-600 text-white font-semibold px-6 py-3 rounded-full hover:bg-orange-700 transition-all duration-300 shadow-md hover:shadow-lg">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      document.getElementById('phone').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 3 && value.length <= 6) {
+          value = value.slice(0, 3) + '-' + value.slice(3);
+        } else if (value.length > 6) {
+          value = value.slice(0, 3) + '-' + value.slice(3, 6) + '-' + value.slice(6, 10);
+        }
+        e.target.value = value;
+      });
+      document.getElementById('mobile-phone').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 3 && value.length <= 6) {
+          value = value.slice(0, 3) + '-' + value.slice(3);
+        } else if (value.length > 6) {
+          value = value.slice(0, 3) + '-' + value.slice(3, 6) + '-' + value.slice(6, 10);
+        }
+        e.target.value = value;
+      });
+      document.getElementById('toggle-form').addEventListener('click', function(e) {
+        e.preventDefault();
+        const form = document.getElementById('mobileUserInfoForm');
+        form.classList.toggle('hidden');
+        this.textContent = form.classList.contains('hidden') ? 'Join the Flock!' : 'Hide Form';
+        this.classList.toggle('bg-blue-600');
+        this.classList.toggle('bg-blue-800');
+      });
+      document.getElementById('userInfoForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        console.log('Desktop form submitted');
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const comment = document.getElementById('comment').value; 
+        try {
+          const res = await fetch('https://xmkvtmgtwb.execute-api.us-east-1.amazonaws.com/dev/save-teaser', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, email, phone, comment }),
+          });
+          const data = await res.json();
+          alert(data.message);
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Something went wrong. Please try again.');
+        }
+      });
+      document.getElementById('mobileUserInfoForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        console.log('Mobile form submitted');
+        const name = document.getElementById('mobile-name').value;
+        const email = document.getElementById('mobile-email').value;
+        const phone = document.getElementById('mobile-phone').value;
+        const comment = document.getElementById('mobile-comment').value;
+        try {
+          const res = await fetch('https://xmkvtmgtwb.execute-api.us-east-1.amazonaws.com/dev/save-rider', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, email, phone, comment }),
+          });
+          const data = await res.json();
+          alert(data.message);
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Something went wrong. Please try again.');
+        }
+      });
+
+      // Check token and name in localStorage
+      const token = localStorage.getItem('jwt');
+      const userName = localStorage.getItem('userName') || 'Guest';
+      const authButton = document.getElementById('authButton');
+      const authButtonMobile = document.getElementById('authButtonMobile');
+      const userInfo = document.getElementById('userInfo');
+      const userInfoMobile = document.getElementById('userInfoMobile');
+      const userNameDisplay = document.getElementById('user-name-display');
+      // Update greetings
+      if (userInfo) {
+        userInfo.textContent = `Hello, ${userName}`;
+      }
+      if (userInfoMobile) {
+        userInfoMobile.textContent = `Hello, ${userName}`;
+      }
+      if (userNameDisplay) {
+        userNameDisplay.textContent = userName;
+      }
+      // Conditionally render Login or Logout
+      if (token) {
+        authButton.innerHTML = '<button class="text-yellow-900 hover:text-yellow-700 font-semibold text-lg">Logout</button>';
+        authButtonMobile.innerHTML = '<button class="block text-yellow-900 hover:text-yellow-700 font-semibold text-lg">Logout</button>';
+        authButton.onclick = () => {
+          localStorage.removeItem('jwt');
+          localStorage.removeItem('userName');
+          window.location.href = '/login';
+        };
+        authButtonMobile.onclick = authButton.onclick;
+      } else {
+        authButton.innerHTML = '<a href="/login" class="text-yellow-900 hover:text-yellow-700 font-semibold text-lg">Login</a>';
+        authButtonMobile.innerHTML = '<a href="/login" class="block text-yellow-900 hover:text-yellow-700 font-semibold text-lg">Login</a>';
+      }
+    </script>
+  </section>
+  <!-- Footer -->
+  <footer id="contact" class="text-white py-12 footer-gradient">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-2xl font-bold mb-4">Birdy</h3>
+          <p class="font-light text-lg"> 
+            The Ethical Choice 
+            <br>
+            Your trusted birdy, just one tap away.</p>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2 font-light text-lg">
+            <li><a href="/" class="hover:text-yellow-300">Home</a></li>
+            <li><a href="/about" class="hover:text-yellow-300">About</a></li>
+            <li><a href="/contact" class="hover:text-yellow-300">Contact</a></li>
+            <li><a href="/privacy" class="hover:text-yellow-300">Privacy</a></li>
+            <li><a href="/Drivers" class="hover:text-yellow-300">Professionals</a></li>
+            <li><a href="/Riders" class="hover:text-yellow-300">Riders</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold mb-4">Contact Us</h3>
+          <p class="font-light text-lg">
+            Email: <a href="mailto:getabirdy@gmail.com" class="text-orange-600 hover:underline">getabirdy@gmail.com</a>
+          </p>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold mb-4">Follow Us</h3>
+          <div class="flex space-x-4 mb-4">
+            <a href="https://www.tiktok.com/@birdyapp" target="_blank" class="text-white hover:text-yellow-300 transition">
+              <i class="fab fa-tiktok text-2xl"></i>
+            </a>
+            <a href="https://x.com/GetABirdy" target="_blank" class="text-white hover:text-yellow-300 transition">
+              <i class="fab fa-x-twitter text-2xl"></i>
+            </a>
+            <a href="https://www.instagram.com/getbirdy/" target="_blank" class="text-white hover:text-yellow-300 transition">
+              <i class="fab fa-instagram text-2xl"></i>
+            </a>
+            <a href="https://www.facebook.com/birdyapp" target="_blank" class="text-white hover:text-yellow-300 transition">
+              <i class="fab fa-facebook-f text-2xl"></i>
+            </a>
+          </div>
+          <button id="share-button" class="bg-orange-600 text-white font-semibold px-4 py-2 rounded-full hover:bg-orange-700 transition-all duration-300 flex items-center">
+            <i class="fas fa-share-alt mr-2"></i> Share Birdy
+          </button>
+        </div>
+      </div>
+      <div class="mt-8 text-center">
+        <p class="font-light text-lg"> Birdy is a business listing platform designed to help independent professionals showcase their services. By using Birdy, you acknowledge that all connections and communications are initiated voluntarily. You connect with professionals, and we do not control pricing, dispatch, or payments. Any arrangements for rides, payments, or services happen directly between you and the listed professional, outside of our platform. Birdy does not coordinate, broker, or facilitate transportation services.</p>
+        <br>
+        <p class="font-light text-lg">© 2025 Birdy. All rights reserved.  birdyone.com & the app "Birdy" is a subsidiary of Equity Group Capital LLC. </p>
+      </div>
+    </div>
+  </footer>
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+  <!-- JavaScript for Carousel -->
+  <script>
+    const carousel = document.getElementById('carousel');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentIndex = 0;
+    const totalItems = carousel.children.length;
+    const itemsToShow = 3;
+    function updateCarousel() {
+      const offset = -currentIndex * (100 / itemsToShow);
+      carousel.style.transform = `translateX(${offset}%)`;
+    }
+    prevBtn.addEventListener('click', () => {
+      currentIndex = Math.max(currentIndex - 1, 0);
+      updateCarousel();
+    });
+    nextBtn.addEventListener('click', () => {
+      currentIndex = Math.min(currentIndex + 1, totalItems - itemsToShow);
+      updateCarousel();
+    });
+  </script>
+  <!-- JavaScript for Social Sharing -->
+  <script>
+    document.getElementById('share-button').addEventListener('click', async () => {
+      const shareData = {
+        title: 'Birdy - Your Trusted Ride',
+        text: 'Join Birdy and connect directly with trusted professionals for safe, affordable services!',
+        url: 'https://birdyt.com'
+      };
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+        } else {
+          navigator.clipboard.writeText(shareData.url).then(() => {
+            alert('Link copied to clipboard! Share it with your friends.');
+          }).catch(() => {
+            alert('Failed to copy link. Please copy this URL: ' + shareData.url);
+          });
+        }
+      } catch (err) {
+        console.error('Share failed:', err);
+        navigator.clipboard.writeText(shareData.url).then(() => {
+          alert('Link copied to clipboard! Share it with your friends.');
+        }).catch(() => {
+          alert('Failed to copy link. Please copy this URL: ' + shareData.url);
+        });
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F3YC9S70LY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-F3YC9S70LY');
+  </script>
+  <script>
+    // Hero Tagline Animation
+    const taglineElement = document.getElementById('hero-tagline');
+    const messages = [
+        "You Keep More. Not the Big Apps.",
+        "Earn more. Live more.",
+        "We don’t take 20–30% in service or hidden fees — that’s outrageous.",
+        "Tired of working for others? Start your own business with the skills you already have.",
+        "Don’t let big apps take your money."
+    ];
+    
+    let messageIndex = 0;
+    let charIndex = 0;
+    
+    function typeMessage() {
+        if (charIndex < messages[messageIndex].length) {
+            taglineElement.textContent += messages[messageIndex].charAt(charIndex);
+            charIndex++;
+            setTimeout(typeMessage, 50); // Typing speed
+        } else {
+            setTimeout(deleteMessage, 2500); // Pause before deleting
+        }
+    }
+    
+    function deleteMessage() {
+        if (taglineElement.textContent.length > 0) {
+            taglineElement.textContent = taglineElement.textContent.slice(0, -1);
+            setTimeout(deleteMessage, 30); // Deleting speed
+        } else {
+            messageIndex = (messageIndex + 1) % messages.length;
+            charIndex = 0;
+            setTimeout(typeMessage, 500); // Pause before typing next message
+        }
+    }
+    
+    // Start the hero tagline animation
+    taglineElement.textContent = '';
+    typeMessage();
+  </script>
+</body>
+</html>

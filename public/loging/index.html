@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Login Example</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+      function handleCredentialResponse(response) {
+        const token = response.credential; // JWT ID token
+        console.log("ID Token:", token);                     // to Backend api 
+
+        // Optional: Decode the token to get user info
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        console.log("User Info:", payload);                   // to Backend api , has email  , has name  , has picture 
+      }
+
+      window.onload = function () {
+        google.accounts.id.initialize({
+          client_id: "299309099963-5sodtstum7m95l0siojj3a5ruacdv9tg.apps.googleusercontent.com",
+          callback: handleCredentialResponse,
+        });
+        google.accounts.id.renderButton(
+          document.getElementById("google-button"),
+          { theme: "outline", size: "large" }
+        );
+      };
+    </script>
+  </head>
+  <body>
+    <div id="google-button"></div>
+  </body>
+</html>

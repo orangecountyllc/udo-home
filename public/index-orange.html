@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birdy: The one stop for every service</title>
+    <link rel="icon" href="static/logo/birdy-1024.png" type="image/png" />
+
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous" /> 
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-BoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-Italic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-Light.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-LightItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraBold.ttf" as="font" type="font/ttf" crossorigin="anonymous" />   
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraBoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraLight.ttf" as="font" type="font/ttf" crossorigin="anonymous" />  
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-ExtraLightItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />  
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-SemiBold.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" href="/themes/fonts/Nunito/Nunito-SemiBoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="msvalidate.01" content="9608B688896A42D8210BEBCAC79C6D0A" />
+
+    
+
+    <style>
+        @font-face {
+            font-family: 'Nunito';
+            src: url('/themes/fonts/Nunito/Nunito-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Nunito';
+            src: url('/themes/fonts/Nunito/Nunito-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Nunito';
+            src: url('/themes/fonts/Nunito/Nunito-ExtraBold.ttf') format('truetype');
+            font-weight: 800;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* General Styles & Mobile-First Design */
+        :root {
+            --primary-color: #FF8C00; /* Dark Orange */
+            --text-color: #333;
+            --light-gray: #f4f4f4;
+            --white: #fff;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--white);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800; /* Using a heavier font weight for the logo */
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            width: 40px;
+            height: 40px;
+            fill: var(--primary-color);
+        }
+
+        /* Hero Section (For Customers) */
+        .hero {
+            padding: 3rem 0;
+        }
+
+        /* .tagline {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        } */
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            /* New CSS to prevent content shift */
+            min-height: 4em; /* Adjust this value if your text is taller */
+        }
+
+        .app-store-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.2s ease-in-out;
+        }
+        
+        .app-store-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Features Section */
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            padding: 1.5rem;
+            border-radius: 10px;
+            background-color: var(--light-gray);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        /* Pro Section (For Professionals) */
+        .pro-section {
+            background-color: var(--light-gray);
+            padding: 4rem 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .pro-tagline {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .pro-benefits {
+            list-style: none;
+            padding: 0;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .pro-benefits li {
+            display: flex;
+            align-items: center;
+            text-align: left;
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .pro-signup-btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background-color: var(--text-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 2rem;
+            transition: transform 0.2s ease-in-out;
+        }
+        
+        .pro-signup-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+       footer {
+            margin-top: 4rem;
+            padding: 2.5rem 0;
+            background: linear-gradient(to right, var(--primary-color), #FF6347, #FF4500);
+            color: var(--white);
+            font-size: 0.9rem;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .footer-links a:hover {
+            color: #f0f0f0;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            color: var(--white);
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Media Queries for Desktop */
+        @media (min-width: 768px) {
+            .features {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+            
+            .pro-benefits {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+
+            .pro-benefits li {
+                max-width: 25%;
+                text-align: center;
+                flex-direction: column;
+            }
+
+            .benefit-icon {
+                margin-right: 0;
+            }
+
+            .footer-links {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+    </style>
+
+
+</head>
+
+
+
+
+<body> 
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24">
+                    <path d="M22.5,4.7c-0.3-0.2-0.7-0.3-1.1-0.3c-0.2,0-0.3,0-0.5,0.1c-0.2,0-0.4,0.1-0.6,0.2c-0.6,0.3-1,0.9-1,1.6c0,0.6,0.4,1.1,1.1,1.3c0.3,0.1,0.6,0.1,1,0.1c0.4,0,0.7,0,1,0c0.3-0.1,0.6-0.3,0.9-0.5c0.5-0.4,0.8-1,0.8-1.7c0-0.5-0.1-1-0.5-1.4c-0.2-0.2-0.5-0.4-0.8-0.5C22.6,4.7,22.6,4.7,22.5,4.7z M18.1,7.8C18,7.9,17.9,8,17.8,8c-0.3,0.2-0.7,0.3-1,0.3c-0.1,0-0.2,0-0.3,0c-0.2,0-0.4-0.1-0.6-0.2c-0.5-0.3-0.9-0.9-0.9-1.6c0-0.6,0.4-1.1,1-1.3c0.3-0.1,0.6-0.1,1-0.1c0.4,0,0.7,0,1,0c0.3,0.1,0.6,0.3,0.9,0.5c0.5,0.4,0.8,1,0.8,1.7c0,0.5-0.1,1-0.5,1.4C18.5,7.7,18.3,7.8,18.1,7.8z M12.5,13.6c-0.3-0.2-0.7-0.3-1.1-0.3c-0.2,0-0.3,0-0.5,0.1c-0.2,0-0.4,0.1-0.6,0.2c-0.6,0.3-1,0.9-1,1.6c0,0.6,0.4,1.1,1.1,1.3c0.3,0.1,0.6,0.1,1,0.1c0.4,0,0.7,0,1,0c0.3-0.1,0.6-0.3,0.9-0.5c0.5-0.4,0.8-1,0.8-1.7c0-0.5-0.1-1-0.5-1.4C12.6,13.7,12.6,13.7,12.5,13.6z M6.9,16.5C6.7,16.6,6.5,16.7,6.4,16.8c-0.3,0.2-0.7,0.3-1,0.3c-0.1,0-0.2,0-0.3,0c-0.2,0-0.4-0.1-0.6-0.2c-0.5-0.3-0.9-0.9-0.9-1.6c0-0.6,0.4-1.1,1-1.3c0.3-0.1,0.6-0.1,1-0.1c0.4,0,0.7,0,1,0c0.3,0.1,0.6,0.3,0.9,0.5c0.5,0.4,0.8,1,0.8,1.7c0,0.5-0.1,1-0.5,1.4C7.3,16.4,7.1,16.5,6.9,16.5z M23.5,23.3l-1.9-1.8c-0.2,0.1-0.5,0.3-0.8,0.3c-0.6,0-1-0.4-1.2-1c-0.1-0.3-0.1-0.6-0.1-1c0-0.4,0.1-0.7,0.3-1c0.1-0.2,0.3-0.4,0.5-0.6c0.4-0.3,0.9-0.5,1.5-0.5c0.6,0,1.1,0.2,1.5,0.5c0.3,0.2,0.5,0.4,0.7,0.7l0.1,0.1l-1.2-0.8l0.1,0.1c0.1-0.1,0.2-0.2,0.3-0.4c0.1-0.1,0.2-0.2,0.3-0.3l1.8,1.8c0.2-0.1,0.4-0.3,0.6-0.4c0.3-0.2,0.6-0.3,0.9-0.3c0.6,0,1,0.4,1.2,1c0.1,0.3,0.1,0.6,0.1,1c0,0.4-0.1,0.7-0.3,1c-0.1,0.2-0.3,0.4-0.5,0.6c-0.4,0.3-0.9,0.5-1.5,0.5c-0.6,0-1.1-0.2-1.5-0.5c-0.3-0.2-0.5-0.4-0.7-0.7l-0.1-0.1l1.2,0.8l-0.1-0.1C24,23.4,24.1,23.5,24.2,23.6c0.1,0.1,0.2,0.2,0.3,0.3L23.5,23.3z"></path>
+                </svg>
+                Birdy
+            </div>
+        </header>
+
+        <main>
+            <section class="pro-hero">
+                <h1 class="tagline" id="hero-tagline"></h1>
+            </section>
+            
+            <section class="pro-content">
+                <h2 class="pro-tagline">For the Pros: Get Paid More. Fly Free.</h2>
+               
+                <p>
+                    Tired of big tech taking too much? Birdy puts money back into local workers’ hands and savings into yours—helping your community thrive, not Silicon Valley.
+
+                </p>
+                <ul class="pro-benefits">
+                    <li>
+                        <div class="benefit-icon">💸</div>
+                        <p>Earn more money with transparent rates.</p>
+                    </li>
+                    <li>
+                        <div class="benefit-icon">🚀</div>
+                        <p>Get direct leads and grow your business.</p>
+
+                 
+
+                    </li>
+                    <li>
+                        <div class="benefit-icon">🕊️</div>
+                        <p>Be your own boss and set your own terms. Fly free from big apps.</p>
+                    </li>
+                </ul>
+                <a href="https://apps.apple.com/app/your-app-id" class="app-store-btn">Download for Professionals</a>
+                </section>
+
+            <section class="hero">
+                <h2>For Customers: Book Services. Live Your Life.</h2>
+                <p>Find trusted professionals, book on-demand services, and get your tasks done, all in one app.</p>
+            </section>
+
+            <section class="features">
+                <div class="feature-item">
+                    <div class="feature-icon">🛒</div>
+                    <h3>One Place for Everything</h3>
+                    <p> From taco chefs to mechanics, find hundreds of services in a single app.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✨</div>
+                    <h3>Quality You Can Trust</h3>
+                    <p>Connect with vetted professionals and get your projects done right.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <h3>One Tap to Get It Done</h3>
+                    <p>Book a Pro in seconds and track their progress in real-time.</p>
+                </div>
+            </section>
+
+            
+        </main>
+
+        <a href="https://apps.apple.com/app/your-app-id" class="app-store-btn" style="margin-top: 45px;  ">Download on the App Store</a>
+        
+    </div>
+    
+   <footer style="color: white; text-align: center;">
+        <div class="container">
+            <ul class="footer-links" style="padding-bottom: 25px;">
+                <li><a href="/about">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+            </ul>
+            <p class="copyright">&copy; 2025 BirdyOne. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        const taglineElement = document.getElementById('hero-tagline');
+        const messages = [
+            "You Keep More. Not the Big Apps.",
+            "Earn more. Live more.",
+            "Unlike big apps, we don’t take 20–30% in fees or shortchange workers — that’s outrageous.",
+            "Tired of working for others? Start your own business with the skills you already have.",
+            "Don’t let big apps take your money.",
+            "We do not take 20-30% service fee thats outrageous.",
+            "Big Apps Make Billions While Price Gouging Us. Why Do We Allow It?"
+        ];
+        
+        let messageIndex = 0;
+        let charIndex = 0;
+        
+        function typeMessage() {
+            if (charIndex < messages[messageIndex].length) {
+                taglineElement.textContent += messages[messageIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(typeMessage, 50); // Typing speed
+            } else {
+                setTimeout(deleteMessage, 2500); // Pause before deleting
+            }
+        }
+        
+        function deleteMessage() {
+            if (taglineElement.textContent.length > 0) {
+                taglineElement.textContent = taglineElement.textContent.slice(0, -1);
+                setTimeout(deleteMessage, 30); // Deleting speed
+            } else {
+                messageIndex = (messageIndex + 1) % messages.length;
+                charIndex = 0;
+                setTimeout(typeMessage, 500); // Pause before typing next message
+            }
+        }
+        
+        // Start the animation
+        typeMessage();
+    </script>
+
+</body>
+
+
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debug Logs Viewer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/babel-standalone@6.26.0/babel.min.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div id="root"></div>
+  <script type="text/babel">
+    const API_BASE_URL = 'https://xmkvtmgtwb.execute-api.us-east-1.amazonaws.com/dev/';
+    const LOGS_ENDPOINT = `${API_BASE_URL}/api/get-front-logs`;
+
+    function App() {
+      const [logs, setLogs] = React.useState([]);
+      const [refreshing, setRefreshing] = React.useState(false);
+
+      const fetchLogs = async () => {
+        try {
+          setRefreshing(true);
+          const response = await fetch(LOGS_ENDPOINT);
+          const data = await response.json();
+          setLogs(data);
+        } catch (error) {
+          console.error('Failed to fetch logs:', error);
+        } finally {
+          setRefreshing(false);
+        }
+      };
+
+      React.useEffect(() => {
+        fetchLogs();
+      }, []);
+
+      const copyLogsToClipboard = () => {
+        const logText = logs
+          .map((log) => `${log.timestamp}: ${JSON.stringify(log.message, null, 2)}`)
+          .join('\n');
+        navigator.clipboard.writeText(logText).then(() => {
+          alert('Logs copied to clipboard!');
+        });
+      };
+
+      const onRefresh = () => {
+        fetchLogs();
+      };
+
+      return (
+        <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-3xl font-bold text-gray-900">Log Viewer</h1>
+            <div className="flex space-x-4">
+              <button
+                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+                onClick={onRefresh}
+                disabled={refreshing}
+              >
+                {refreshing ? (
+                  <svg className="animate-spin h-5 w-5 mr-2 text-white" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l4-4-4-4v4a12 12 0 00-12 12h4z" />
+                  </svg>
+                ) : (
+                  <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h5m11 6v5h-5m-6-10l-4 4m0 0l4 4m-4-4h12" />
+                  </svg>
+                )}
+                Refresh Logs
+              </button>
+              {logs.length > 0 && (
+                <button
+                  className="inline-flex items-center px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition"
+                  onClick={copyLogsToClipboard}
+                >
+                  <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  Copy Logs
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Logs Container */}
+          <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div className="p-6">
+              {logs.length === 0 ? (
+                <div className="text-center py-10">
+                  <p className="text-gray-500 text-lg">No logs available</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {logs.map((log, index) => (
+                    <div key={index} className="border-l-4 border-blue-500 pl-4 py-2 bg-gray-50 rounded-r-lg">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-semibold text-gray-700">
+                          {new Date(log.timestamp).toLocaleString('en-US', { timeZone: 'America/New_York' })}
+                        </span>
+                      </div>
+                      <pre className="mt-2 text-xs text-gray-800 font-mono whitespace-pre-wrap bg-gray-100 p-3 rounded">
+                        {JSON.stringify(log.message, null, 2)}
+                      </pre>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>

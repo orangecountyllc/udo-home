@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birdy.app | Precision Service Marketplace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-dark: #0a0b0d;
+            --accent-green: #39FF14; /* Cyber Lime for 'Precision' */
+            --card-gray: #161b22;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+        .grid-mesh {
+            background-image: linear-gradient(rgba(57, 255, 20, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(57, 255, 20, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .vantage-card:hover {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+        }
+    </style>
+</head>
+<body class="grid-mesh min-h-screen">
+
+    <nav class="flex justify-between items-center p-6 border-b border-gray-800 bg-black/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="text-2xl font-black tracking-tighter italic">BIRDY<span class="text-[#39FF14]">.APP</span></div>
+        <div class="hidden md:flex space-x-8 text-sm font-bold tracking-widest uppercase">
+            <a href="#" class="hover:text-[#39FF14]">Map View</a>
+            <a href="#" class="hover:text-[#39FF14]">Services</a>
+            <a href="#" class="hover:text-[#39FF14]">For Professionals</a>
+        </div>
+        <button class="bg-[#39FF14] text-black px-6 py-2 rounded-full font-black text-xs uppercase hover:scale-105 transition">Login</button>
+    </nav>
+
+    <main class="max-w-6xl mx-auto p-6 mt-8">
+        
+        <div class="mb-12">
+            <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight uppercase">What do you <span class="text-gray-500">command?</span></h1>
+            <div class="relative">
+                <input type="text" placeholder="Search 500+ Specialized Services..." class="w-full bg-[#161b22] border-2 border-gray-800 p-6 rounded-xl text-xl focus:border-[#39FF14] outline-none transition shadow-2xl">
+                <div class="absolute right-4 top-4 bg-[#39FF14] text-black p-2 rounded-lg font-bold">CMD + K</div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+            <div class="vantage-card bg-[#161b22] border border-gray-800 p-8 rounded-2xl transition group cursor-pointer">
+                <div class="text-[#39FF14] mb-4 font-mono text-xs tracking-widest">SECTOR // 01</div>
+                <h3 class="text-2xl font-bold mb-2">INFRASTRUCTURE</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Plumbing, HVAC, Electrical, Construction.</p>
+                <div class="mt-6 opacity-0 group-hover:opacity-100 transition font-bold text-xs">VIEW GRID &rarr;</div>
+            </div>
+
+            <div class="vantage-card bg-[#161b22] border border-gray-800 p-8 rounded-2xl transition group cursor-pointer">
+                <div class="text-[#39FF14] mb-4 font-mono text-xs tracking-widest">SECTOR // 02</div>
+                <h3 class="text-2xl font-bold mb-2">MOBILITY</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Mobile Mechanics, Towing, EV Charge, Chauffeur.</p>
+                <div class="mt-6 opacity-0 group-hover:opacity-100 transition font-bold text-xs">VIEW GRID &rarr;</div>
+            </div>
+
+            <div class="vantage-card bg-[#161b22] border border-gray-800 p-8 rounded-2xl transition group cursor-pointer">
+                <div class="text-[#39FF14] mb-4 font-mono text-xs tracking-widest">SECTOR // 03</div>
+                <h3 class="text-2xl font-bold mb-2">PERSONAL</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Mobile Grooming, Wellness, Private Chefs.</p>
+                <div class="mt-6 opacity-0 group-hover:opacity-100 transition font-bold text-xs">VIEW GRID &rarr;</div>
+            </div>
+
+            <div class="vantage-card bg-[#39FF14] border border-[#39FF14] p-8 rounded-2xl transition group cursor-pointer shadow-[0_0_30px_rgba(57,255,20,0.1)]">
+                <div class="text-black mb-4 font-mono text-xs tracking-widest">SECTOR // 04</div>
+                <h3 class="text-2xl font-bold mb-2 text-black">ELITE</h3>
+                <p class="text-black/70 text-sm leading-relaxed font-semibold">Attorneys, Realtors, Mortgage, Consulting.</p>
+                <div class="mt-6 text-black font-bold text-xs uppercase">Certified Providers &rarr;</div>
+            </div>
+        </div>
+
+        <div class="bg-gray-900 border-2 border-dashed border-gray-700 h-96 rounded-3xl flex items-center justify-center relative overflow-hidden">
+            <div class="absolute inset-0 grid-mesh opacity-20"></div>
+            <div class="text-center z-10">
+                <div class="bg-black/80 p-4 rounded-xl border border-gray-700">
+                    <p class="text-sm font-mono text-[#39FF14]">BIRD'S EYE VANTAGE INITIALIZED</p>
+                    <p class="text-xs text-gray-500 mt-1 uppercase tracking-tighter">Locating 2,491 verified independent providers in your area...</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="p-12 border-t border-gray-800 mt-20 text-center">
+        <p class="text-gray-600 text-xs tracking-widest uppercase">Birdy.app &copy; 2025 // No Commissions. Direct Access. Total Oversight.</p>
+    </footer>
+
+</body>
+</html>
