@@ -191,7 +191,7 @@
       // const apiUrl = 'http://localhost:3000/admin/users'; // Pointing to local Go server
 
 
-      const apiUrl ='https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/admin/users';
+      const apiUrl = 'https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/admin/users';
 
       function renderUsers(usersToRender) {
         userListContainer.innerHTML = '';
@@ -199,22 +199,101 @@
           userListContainer.innerHTML = '<div class="text-center text-gray-500 py-10">No users found.</div>';
           return;
         }
-        usersToRender.forEach(user => {
-          const profileImage = user.serviceProfile?.providerDetails?.profileImage || 'https://via.placeholder.com/80'; // Default placeholder if no image
-
-          const userCard = document.createElement('div');
-          userCard.className = 'bg-white p-4 rounded-lg shadow-md border border-gray-200 hover:shadow-lg hover:border-blue-500 transition-all cursor-pointer flex items-center';
-          userCard.innerHTML = `
-            <img src="${profileImage}" alt="Profile Image" class="w-12 h-12 rounded-full mr-4 border">
-            <div class="flex-grow">
-              <div class="font-bold text-lg text-gray-800">${user.firstName || ''} ${user.lastName || ''}</div>
-              <div class="text-gray-600">${user.email || 'No email'}</div>
-            </div>
-            <div class="text-sm text-gray-500">Joined: ${new Date(user.createdAt).toLocaleDateString()}</div>
+        
+        // Separate users by service profile status
+        console.log('Total users:', usersToRender.length);
+        console.log('Sample user:', usersToRender[0]);
+        
+        // The response from /admin/usersfull has structure: {user: {...}, serviceProfile: {...}}
+        // Extract user objects and check if they have service profile
+        const usersWithoutServiceProfile = usersToRender.filter(item => !item.serviceProfile).map(item => ({
+          ...item.user,
+          id: item.user._id || item.user.id // Ensure id field is set
+        }));
+        const usersWithServiceProfile = usersToRender.filter(item => item.serviceProfile).map(item => ({
+          ...item.user,
+          id: item.user._id || item.user.id, // Ensure id field is set
+          serviceProfile: item.serviceProfile
+        }));
+        
+        console.log('Users without Service Profile count:', usersWithoutServiceProfile.length);
+        console.log('Users with Service Profile count:', usersWithServiceProfile.length);
+        console.log('Users with Service Profile:', usersWithServiceProfile);
+        
+        // Render Users Without Service Profile (Clients)
+        if (usersWithoutServiceProfile.length > 0) {
+          const clientsHeader = document.createElement('div');
+          clientsHeader.className = 'text-center py-4';
+          clientsHeader.innerHTML = `
+            <h2 class="text-2xl font-bold text-blue-600 mb-2">Clients</h2>
+            <p class="text-gray-600">${usersWithoutServiceProfile.length} client${usersWithoutServiceProfile.length !== 1 ? 's' : ''}</p>
           `;
-          userCard.addEventListener('click', () => openSidebar(user));
-          userListContainer.appendChild(userCard);
-        });
+          userListContainer.appendChild(clientsHeader);
+          
+          usersWithoutServiceProfile.forEach(user => {
+            const profileImage = user.picture || 'https://via.placeholder.com/80';
+            
+            const userCard = document.createElement('div');
+            userCard.className = 'bg-white p-4 rounded-lg shadow-md border border-gray-200 hover:shadow-lg hover:border-blue-500 transition-all cursor-pointer flex items-center';
+            userCard.innerHTML = `
+              <img src="${profileImage}" alt="Profile Image" class="w-12 h-12 rounded-full mr-4 border">
+              <div class="flex-grow">
+                <div class="font-bold text-lg text-gray-800">${user.firstName || ''} ${user.lastName || ''}</div>
+                <div class="text-gray-600">${user.email || 'No email'}</div>
+              </div>
+              <div class="text-sm text-gray-500">Joined: ${new Date(user.createdAt).toLocaleDateString()}</div>
+            `;
+            userCard.addEventListener('click', () => openSidebar(user));
+            userListContainer.appendChild(userCard);
+          });
+        }
+        
+        // Add separator if both sections exist
+        if (usersWithoutServiceProfile.length > 0 && usersWithServiceProfile.length > 0) {
+          const separator = document.createElement('div');
+          separator.className = 'flex items-center justify-center my-8';
+          separator.innerHTML = `
+            <div class="w-full border-t-2 border-dashed border-gray-300"></div>
+            <div class="mx-4 px-4 bg-gray-100 rounded-full text-gray-500 font-semibold text-sm">
+              VS
+            </div>
+            <div class="w-full border-t-2 border-dashed border-gray-300"></div>
+          `;
+          userListContainer.appendChild(separator);
+        }
+        
+        // Render Users With Service Profile (Professionals)
+        const professionalsHeader = document.createElement('div');
+        professionalsHeader.className = 'text-center py-4';
+        professionalsHeader.innerHTML = `
+          <h2 class="text-2xl font-bold text-green-600 mb-2">Professionals</h2>
+          <p class="text-gray-600">${usersWithServiceProfile.length} professional${usersWithServiceProfile.length !== 1 ? 's' : ''}</p>
+        `;
+        userListContainer.appendChild(professionalsHeader);
+        
+        if (usersWithServiceProfile.length > 0) {
+          usersWithServiceProfile.forEach(user => {
+            const profileImage = user.serviceProfile?.providerDetails?.profileImage || 'https://via.placeholder.com/80';
+            
+            const userCard = document.createElement('div');
+            userCard.className = 'bg-white p-4 rounded-lg shadow-md border border-gray-200 hover:shadow-lg hover:border-blue-500 transition-all cursor-pointer flex items-center';
+            userCard.innerHTML = `
+              <img src="${profileImage}" alt="Profile Image" class="w-12 h-12 rounded-full mr-4 border">
+              <div class="flex-grow">
+                <div class="font-bold text-lg text-gray-800">${user.firstName || ''} ${user.lastName || ''}</div>
+                <div class="text-gray-600">${user.email || 'No email'}</div>
+              </div>
+              <div class="text-sm text-gray-500">Joined: ${new Date(user.createdAt).toLocaleDateString()}</div>
+            `;
+            userCard.addEventListener('click', () => openSidebar(user));
+            userListContainer.appendChild(userCard);
+          });
+        } else {
+          const noProfessionals = document.createElement('div');
+          noProfessionals.className = 'text-center py-4 text-gray-500';
+          noProfessionals.textContent = 'No professionals found';
+          userListContainer.appendChild(noProfessionals);
+        }
       }
 
       async function openSidebar(user) {
@@ -240,7 +319,7 @@
           const profileData = await response.json();
           console.log('Profile data:', profileData);
 
-          // Extract user and serviceProfile from the response
+          // Extract user and serviceProfile from response
           userData = profileData.user || user;
           serviceProfile = profileData.serviceProfile;
           providerDetails = serviceProfile?.providerDetails;
@@ -248,7 +327,7 @@
           workingHours = serviceProfile?.workingHours;
           selectedServices = serviceProfile?.selectedServices || [];
 
-          // Render the detailed profile
+          // Render detailed profile
           sidebarContent.innerHTML = `
             <!-- User Basic Information -->
             <div class="mb-6">
@@ -398,7 +477,7 @@
           currentProviderDetails = providerDetails;
         }
 
-        // Clear the footer and add action buttons
+        // Clear footer and add action buttons
         sidebarFooter.innerHTML = '';
 
         // Add "View Full Profile" button only if a service profile exists
@@ -411,7 +490,7 @@
           sidebarFooter.appendChild(profileButton);
         }
 
-        // Add the "Delete User" button
+        // Add "Delete User" button
         const deleteButton = document.createElement('button');
         deleteButton.className = 'w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition-colors';
         deleteButton.textContent = 'Delete User';
@@ -433,7 +512,7 @@
           renderUsers(allUsers);
         } catch (error) {
           console.error('Error deleting user:', error);
-          alert('Could not delete the user.');
+          alert('Could not delete user.');
         }
       }
 
@@ -473,7 +552,7 @@
           }
 
           try {
-            // Re-fetch the user's profile to get fresh data
+            // Re-fetch user's profile to get fresh data
             const profileUrl = `https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/admin/users/${userId}/profile`;
             const response = await fetch(profileUrl);
             
@@ -540,10 +619,10 @@
           saveImageEdit.disabled = true;
           saveImageEdit.textContent = 'Saving...';
 
-          // Update the providerDetails object
+          // Update providerDetails object
           currentProviderDetails.profileImage = newImageUrl;
 
-          // Try to call API to update the profile image (optional - will fail gracefully if endpoint doesn't exist)
+          // Try to call API to update profile image (optional - will fail gracefully if endpoint doesn't exist)
           try {
             const updateUrl = `https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/admin/users/${currentEditingUser.id}/profile-image`;
             const response = await fetch(updateUrl, {
@@ -565,7 +644,7 @@
             console.log('API endpoint not available, updating UI only');
           }
 
-          // Update the displayed image in the sidebar
+          // Update displayed image in sidebar
           const profileImgBtn = document.querySelector('#edit-profile-photo-btn img, #edit-profile-photo-btn > div');
           if (profileImgBtn) {
             const parent = profileImgBtn.parentNode;
@@ -577,7 +656,7 @@
             `;
           }
 
-          // Refresh the user list to show updated image
+          // Refresh user list to show updated image
           const userIndex = allUsers.findIndex(u => u.id === currentEditingUser.id);
           if (userIndex !== -1) {
             if (!allUsers[userIndex].serviceProfile) {
@@ -604,10 +683,14 @@
 
       searchInput.addEventListener('input', e => {
         const searchTerm = e.target.value.toLowerCase();
-        const filteredUsers = allUsers.filter(user =>
-          `${user.firstName || ''} ${user.lastName || ''}`.toLowerCase().includes(searchTerm) ||
-          (user.email || '').toLowerCase().includes(searchTerm)
-        );
+        // allUsers now contains {user: {...}, serviceProfile: {...}} objects
+        const filteredUsers = allUsers.filter(item => {
+          const user = item.user;
+          return (
+            `${user.firstName || ''} ${user.lastName || ''}`.toLowerCase().includes(searchTerm) ||
+            (user.email || '').toLowerCase().includes(searchTerm)
+          );
+        });
         renderUsers(filteredUsers);
       });
 
