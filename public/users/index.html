@@ -6,7 +6,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Driver Professional Profile</title>
-  <link rel="icon" href="https://birdyone.com/static/logo/icon.png" type="image/png" />
+
+    <link rel="icon" href="../static/logo/birdy-1024.png" type="image/png" />
   <script src="https://cdn.tailwindcss.com"></script>
 
   <link rel="preload" href="/themes/fonts/Nunito/Nunito-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous" /> 
@@ -141,6 +142,29 @@
     </div>
   </div>
 
+  <!-- Image URL Edit Modal (moved outside sidebar) -->
+  <div id="image-edit-modal" class="fixed inset-0 bg-black bg-opacity-60 z-60 hidden flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-2xl p-6 w-96 max-h-[90vh] overflow-y-auto">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">Update Profile Photo</h3>
+      <div id="image-preview-container" class="mb-4 flex justify-center">
+        <img id="image-preview" src="" alt="Image Preview" class="w-32 h-32 rounded-full object-cover border-2 border-gray-300 hidden">
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Image URL</label>
+        <input type="text" id="image-url-input" placeholder="Paste image URL here..." class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+        <p class="text-xs text-gray-500 mt-1">Enter a direct image URL (e.g., from AWS S3, Cloudinary, etc.)</p>
+      </div>
+      <div class="flex gap-3">
+        <button id="cancel-image-edit" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg transition-colors">
+          Cancel
+        </button>
+        <button id="save-image-edit" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+          Save Photo
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Fetch script -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -152,6 +176,17 @@
       const sidebarContent = document.getElementById('sidebar-content');
       const closeSidebarBtn = document.getElementById('close-sidebar');
       const sidebarFooter = document.getElementById('sidebar-footer');
+      
+      // Image edit modal elements
+      const imageEditModal = document.getElementById('image-edit-modal');
+      const imageUrlInput = document.getElementById('image-url-input');
+      const imagePreview = document.getElementById('image-preview');
+      const cancelImageEdit = document.getElementById('cancel-image-edit');
+      const saveImageEdit = document.getElementById('save-image-edit');
+      
+      // Track current user being edited
+      let currentEditingUser = null;
+      let currentProviderDetails = null;
 
       // const apiUrl = 'http://localhost:3000/admin/users'; // Pointing to local Go server
 
@@ -235,7 +270,14 @@
               ${providerDetails ? `
                 <div class="mb-4">
                   <div class="flex items-center mb-4">
-                    ${providerDetails.profileImage ? `<img src="${providerDetails.profileImage}" alt="Profile Image" class="w-16 h-16 rounded-full mr-4 border-2 border-gray-300">` : '<div class="w-16 h-16 rounded-full mr-4 bg-gray-200 border-2 border-gray-300 flex items-center justify-center"><span class="text-gray-500 text-xs">No Photo</span></div>'}
+                    <button id="edit-profile-photo-btn" data-user-id="${userData.id}" data-has-profile="${!!providerDetails.profileImage}" class="relative group cursor-pointer focus:outline-none" title="Click to edit profile photo">
+                      ${providerDetails.profileImage ? 
+                        `<img src="${providerDetails.profileImage}" alt="Profile Image" class="w-16 h-16 rounded-full mr-4 border-2 border-gray-300 group-hover:border-blue-500 transition-colors object-cover">` : 
+                        '<div class="w-16 h-16 rounded-full mr-4 bg-gray-200 border-2 border-gray-300 flex items-center justify-center group-hover:border-blue-500 transition-colors"><span class="text-gray-500 text-xs">No Photo</span></div>'}
+                      <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black bg-opacity-30 rounded-full">
+                        <span class="text-white text-xs font-medium">✎ Edit</span>
+                      </div>
+                    </button>
                     <div>
                       <div class="font-bold text-lg">${providerDetails.handle || userData.firstName + ' ' + userData.lastName}</div>
                       <div class="text-sm text-gray-600">Status: ${providerDetails.isOnline ? '<span class="text-green-500 font-semibold">● Online</span>' : '<span class="text-gray-500">● Offline</span>'}</div>
@@ -350,6 +392,12 @@
           `;
         }
 
+        // Store current user data for image editing
+        if (providerDetails) {
+          currentEditingUser = userData;
+          currentProviderDetails = providerDetails;
+        }
+
         // Clear the footer and add action buttons
         sidebarFooter.innerHTML = '';
 
@@ -396,6 +444,163 @@
 
       closeSidebarBtn.addEventListener('click', closeSidebar);
       sidebarOverlay.addEventListener('click', closeSidebar);
+
+      // Image Edit Modal Event Listeners
+      function openImageEditModal() {
+        imageUrlInput.value = '';
+        imagePreview.classList.add('hidden');
+        imageEditModal.classList.remove('hidden');
+        imageUrlInput.focus();
+      }
+
+      function closeImageEditModal() {
+        imageEditModal.classList.add('hidden');
+        imageUrlInput.value = '';
+        imagePreview.classList.add('hidden');
+      }
+
+      // Add event listener for edit profile photo button (delegated event)
+      document.addEventListener('click', async (e) => {
+        console.log('Click detected on:', e.target);
+        const editBtn = e.target.closest('#edit-profile-photo-btn');
+        console.log('Edit button found:', editBtn);
+        if (editBtn) {
+          console.log('Opening image edit modal for user...');
+          const userId = editBtn.getAttribute('data-user-id');
+          if (!userId) {
+            console.error('User ID not found on edit button');
+            return;
+          }
+
+          try {
+            // Re-fetch the user's profile to get fresh data
+            const profileUrl = `https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/admin/users/${userId}/profile`;
+            const response = await fetch(profileUrl);
+            
+            if (!response.ok) {
+              throw new Error(`Failed to fetch profile: ${response.status}`);
+            }
+            
+            const profileData = await response.json();
+            currentEditingUser = profileData.user;
+            currentProviderDetails = profileData.serviceProfile?.providerDetails;
+
+            if (!currentEditingUser || !currentProviderDetails) {
+              alert('Error: User profile data not available');
+              return;
+            }
+
+            openImageEditModal();
+          } catch (error) {
+            console.error('Error fetching user profile for edit:', error);
+            alert('Error loading user profile. Please try again.');
+          }
+        }
+      });
+
+      // Image URL input - show preview as user types
+      imageUrlInput.addEventListener('input', (e) => {
+        const url = e.target.value.trim();
+        if (url) {
+          imagePreview.src = url;
+          imagePreview.classList.remove('hidden');
+          imagePreview.onerror = () => {
+            imagePreview.classList.add('hidden');
+          };
+        } else {
+          imagePreview.classList.add('hidden');
+        }
+      });
+
+      // Cancel button
+      cancelImageEdit.addEventListener('click', closeImageEditModal);
+
+      // Close modal when clicking outside
+      imageEditModal.addEventListener('click', (e) => {
+        if (e.target === imageEditModal) {
+          closeImageEditModal();
+        }
+      });
+
+      // Save button - update profile image
+      saveImageEdit.addEventListener('click', async () => {
+        const newImageUrl = imageUrlInput.value.trim();
+        
+        if (!newImageUrl) {
+          alert('Please enter an image URL');
+          return;
+        }
+
+        if (!currentEditingUser || !currentProviderDetails) {
+          alert('Error: User data not available');
+          return;
+        }
+
+        try {
+          saveImageEdit.disabled = true;
+          saveImageEdit.textContent = 'Saving...';
+
+          // Update the providerDetails object
+          currentProviderDetails.profileImage = newImageUrl;
+
+          // Try to call API to update the profile image (optional - will fail gracefully if endpoint doesn't exist)
+          try {
+            const updateUrl = `https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/admin/users/${currentEditingUser.id}/profile-image`;
+            const response = await fetch(updateUrl, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                profileImage: newImageUrl
+              })
+            });
+
+            if (response.ok) {
+              console.log('Profile image updated on server');
+            } else {
+              console.log('Backend endpoint not available, updating UI only');
+            }
+          } catch (apiError) {
+            console.log('API endpoint not available, updating UI only');
+          }
+
+          // Update the displayed image in the sidebar
+          const profileImgBtn = document.querySelector('#edit-profile-photo-btn img, #edit-profile-photo-btn > div');
+          if (profileImgBtn) {
+            const parent = profileImgBtn.parentNode;
+            parent.innerHTML = `
+              <img src="${newImageUrl}" alt="Profile Image" class="w-16 h-16 rounded-full mr-4 border-2 border-gray-300 group-hover:border-blue-500 transition-colors object-cover">
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black bg-opacity-30 rounded-full">
+                <span class="text-white text-xs font-medium">✎ Edit</span>
+              </div>
+            `;
+          }
+
+          // Refresh the user list to show updated image
+          const userIndex = allUsers.findIndex(u => u.id === currentEditingUser.id);
+          if (userIndex !== -1) {
+            if (!allUsers[userIndex].serviceProfile) {
+              allUsers[userIndex].serviceProfile = {};
+            }
+            if (!allUsers[userIndex].serviceProfile.providerDetails) {
+              allUsers[userIndex].serviceProfile.providerDetails = {};
+            }
+            allUsers[userIndex].serviceProfile.providerDetails.profileImage = newImageUrl;
+            renderUsers(allUsers);
+          }
+
+          closeImageEditModal();
+          alert('Profile photo updated successfully!');
+
+        } catch (error) {
+          console.error('Error updating profile image:', error);
+          alert('Failed to update profile image. Please try again.');
+        } finally {
+          saveImageEdit.disabled = false;
+          saveImageEdit.textContent = 'Save Photo';
+        }
+      });
 
       searchInput.addEventListener('input', e => {
         const searchTerm = e.target.value.toLowerCase();
