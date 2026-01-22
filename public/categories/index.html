@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birdy - Categories</title>
       <link rel="icon" href="../static/logo/birdy-1024.png" type="image/png" />
+    <script src="../assets/js/config.js"></script>
     <style>
         * {
             margin: 0;
@@ -668,25 +669,6 @@
     </div>
 
     <script>
-        // Dynamic API base URL detection
-        function getApiBase() {
-            const hostname = window.location.hostname;
-            
-            // Check if we're in a local development environment
-            if (hostname === 'localhost' || 
-                hostname === '127.0.0.1' || 
-                hostname.startsWith('192.168.') || 
-                hostname.startsWith('10.') ||
-                hostname.endsWith('.local')) {
-                return 'http://localhost:3030';
-            }
-            
-            // Production environment - use AWS API Gateway
-            return 'https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/';
-        }
-
-        const API_BASE = getApiBase();  // Dynamic API base URL based on environment
-
         // Tab switching
         function showTab(tabId) {
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));

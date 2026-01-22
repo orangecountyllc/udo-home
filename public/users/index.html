@@ -9,6 +9,7 @@
 
     <link rel="icon" href="../static/logo/birdy-1024.png" type="image/png" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/js/config.js"></script>
 
   <link rel="preload" href="/themes/fonts/Nunito/Nunito-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous" /> 
   <link rel="preload" href="/themes/fonts/Nunito/Nunito-BoldItalic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
@@ -188,10 +189,7 @@
       let currentEditingUser = null;
       let currentProviderDetails = null;
 
-      // const apiUrl = 'http://localhost:3000/admin/users'; // Pointing to local Go server
-
-
-      const apiUrl = 'https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/admin/users';
+      const apiUrl = `${API_BASE}admin/users`;
 
       function renderUsers(usersToRender) {
         userListContainer.innerHTML = '';
@@ -309,7 +307,7 @@
 
         try {
           // Fetch detailed user profile
-          const profileUrl = `https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/admin/users/${user.id}/profile`;
+          const profileUrl = `${API_BASE}admin/users/${user.id}/profile`;
           const response = await fetch(profileUrl);
           
           if (!response.ok) {
@@ -553,7 +551,7 @@
 
           try {
             // Re-fetch user's profile to get fresh data
-            const profileUrl = `https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/admin/users/${userId}/profile`;
+            const profileUrl = `${API_BASE}admin/users/${userId}/profile`;
             const response = await fetch(profileUrl);
             
             if (!response.ok) {
@@ -624,7 +622,7 @@
 
           // Try to call API to update profile image (optional - will fail gracefully if endpoint doesn't exist)
           try {
-            const updateUrl = `https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/admin/users/${currentEditingUser.id}/profile-image`;
+            const updateUrl = `${API_BASE}admin/users/${currentEditingUser.id}/profile-image`;
             const response = await fetch(updateUrl, {
               method: 'PUT',
               headers: {

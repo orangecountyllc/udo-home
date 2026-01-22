@@ -9,6 +9,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="../assets/js/config.js"></script>
   <style>
     @font-face {
       font-family: 'Nunito';
@@ -375,7 +376,7 @@
       setLoading(true);
       
       try {
-        const res = await fetch('https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/verify-otp', {
+        const res = await fetch(`${API_BASE}verify-otp`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -438,7 +439,7 @@
         const cleanedNumber = phone.replace(/\D/g, '');
         const finalNumber = '+1' + cleanedNumber;
         
-        const res = await fetch('https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/send-otp-aws', {
+        const res = await fetch(`${API_BASE}send-otp-aws`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
