@@ -47,28 +47,22 @@
     }
     .input-focus {
       transition: all 0.3s ease;
-      background: #ffffff !important;
-      color: #1e3a8a !important;
-      border: 4px solid #f97316 !important;
-      border-radius: 1.25rem;
-      padding: 1.5rem 2rem;
-      font-size: 3rem;
-      font-weight: 900;
+      background: #ffffff;
+      color: #1e3a8a;
+      border: 2px solid rgba(249, 115, 22, 0.5);
+      border-radius: 0.75rem;
+      padding: 1rem 1.25rem;
+      font-size: 1.25rem;
+      font-weight: 700;
       text-align: center;
-      letter-spacing: 0.75rem;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-      width: 100%;
+      letter-spacing: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      min-height: 60px;
       display: block;
-      min-height: 100px;
-      line-height: 1.2;
-    }
-    .input-focus::placeholder {
-      color: #9ca3af;
-      font-weight: 600;
     }
     .input-focus:focus {
-      transform: scale(1.03);
-      box-shadow: 0 0 30px rgba(249, 115, 22, 0.6);
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(249, 115, 22, 0.5);
       border-color: #f97316;
       outline: none;
     }
@@ -195,32 +189,18 @@
         <form id="verifyForm" class="space-y-6">
           <!-- OTP Input -->
           <div style="margin-bottom: 2rem;">
-            <label for="otp" class="block text-blue-900 font-semibold mb-3 text-lg">Enter OTP code</label>
-            <div style="background: white; padding: 1rem; border-radius: 1.25rem; border: 4px solid #f97316; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);">
-              <input 
-                type="text" 
-                id="otp" 
-                name="otp"
-                style="
-                  width: 100%;
-                  font-size: 3.5rem;
-                  font-weight: 900;
-                  text-align: center;
-                  letter-spacing: 0.75rem;
-                  padding: 1rem 0;
-                  border: none;
-                  outline: none;
-                  background: transparent;
-                  color: #1e3a8a;
-                  min-height: 80px;
-                "
-                placeholder="0000"
-                maxlength="4"
-                autocomplete="one-time-code"
-                pattern="[0-9]*"
-                inputmode="numeric"
-              >
-            </div>
+            <label for="otp" class="block text-blue-900 font-semibold mb-2 text-lg">Enter OTP code</label>
+            <input 
+              type="text" 
+              id="otp" 
+              name="otp"
+              class="input-focus w-full"
+              placeholder="0000"
+              maxlength="4"
+              autocomplete="one-time-code"
+              pattern="[0-9]*"
+              inputmode="numeric"
+            >
           </div>
           
           <!-- Verify Button -->
@@ -472,8 +452,7 @@
 
     // GSAP Animations
     gsap.from(".glassmorphic", { opacity: 0, y: 50, duration: 1, ease: "power3.out" });
-    gsap.from("#otp", { opacity: 0, y: 20, duration: 0.8, delay: 0.5 });
-    gsap.from("#verifyButton", { opacity: 0, y: 20, duration: 0.8, delay: 0.7 });
+    gsap.from("#verifyButton", { opacity: 0, y: 20, duration: 0.8, delay: 0.5 });
   </script>
 </body>
 </html>
