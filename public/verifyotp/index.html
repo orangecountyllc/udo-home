@@ -375,7 +375,7 @@
       setLoading(true);
       
       try {
-        const res = await fetch('https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/auth/verify-otp', {
+        const res = await fetch('https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/verify-otp', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -386,7 +386,20 @@
           })
         });
 
-        const data = await res.json();
+        // Get response text first to see what we received
+        const responseText = await res.text();
+        console.log('Response:', responseText);
+        console.log('Response status:', res.status);
+        console.log('Response ok:', res.ok);
+
+        // Try to parse JSON
+        let data;
+        try {
+          data = JSON.parse(responseText);
+        } catch (e) {
+          console.error('Failed to parse JSON:', e);
+          throw new Error(`Server returned invalid response: ${responseText.substring(0, 100)}`);
+        }
 
         if (!res.ok) {
           throw new Error(data.message || 'Invalid OTP code');
