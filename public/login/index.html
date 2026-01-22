@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Birdy - Sign In</title>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="icon" href="../static/logo/birdy-1024.png" type="image/png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
@@ -60,16 +59,16 @@
       transition: all 0.3s ease;
       background: #ffffff;
       color: #1e3a8a;
-      border: 1px solid #d1d5db;
+      border: 2px solid rgba(249, 115, 22, 0.5);
       border-radius: 0.75rem;
-      padding: 0.875rem 1.25rem;
+      padding: 1rem 1.25rem;
       font-size: 1rem;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
     .input-focus:focus {
       transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(30, 58, 138, 0.5);
-      border-color: #2563eb;
+      box-shadow: 0 0 20px rgba(249, 115, 22, 0.5);
+      border-color: #f97316;
       outline: none;
     }
     .gradient-bg {
@@ -86,48 +85,35 @@
       color: #1e3a8a;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
-    .social-button {
+    .otp-button {
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.125rem;
-      font-weight: 600;
+      font-weight: 700;
       padding: 1rem 2rem;
-      border-radius: 0.75rem;
+      border-radius: 1.5rem;
       transition: all 0.3s ease;
       width: 100%;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      opacity: 1;
+      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+      background: linear-gradient(135deg, #f97316 0%, #f97316 100%);
+      color: white;
     }
-    .social-button i {
-      margin-right: 0.75rem;
-    }
-    .social-button.google {
-      background: #ffffff;
-      color: #000000;
-      border: 1px solid #d1d5db;
-    }
-    .social-button.google:hover, .social-button.google:focus {
-      background: #f7fafc;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    .otp-button:hover:not(:disabled) {
       transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
     }
-    .social-button.facebook {
-      background: #1877f2;
-      color: #ffffff;
-      border: none;
-    }
-    .social-button.facebook:hover, .social-button.facebook:focus {
-      background: #166fe5;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-      transform: translateY(-3px);
+    .otp-button:disabled {
+      background: #d1d5db;
+      cursor: not-allowed;
+      box-shadow: none;
     }
     .loading-spinner {
       display: none;
       width: 1.5rem;
       height: 1.5rem;
-      border: 3px solid #d1d5db;
-      border-top: 3px solid #2563eb;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top: 3px solid #ffffff;
       border-radius: 50%;
       animation: spin 1s linear infinite;
       margin-left: 0.75rem;
@@ -142,41 +128,25 @@
       margin-top: 1.5rem;
       padding: 1rem;
       border-radius: 0.75rem;
-      background: #f3f4f6;
-      color: #1e3a8a;
       font-size: 0.875rem;
       font-weight: 500;
     }
     .message-box.error {
       background: #fee2e2;
       color: #dc2626;
+      border: 1px solid #fca5a5;
     }
     .message-box.success {
       background: #d1fae5;
       color: #065f46;
+      border: 1px solid #6ee7b7;
     }
     @media (max-width: 640px) {
       .glassmorphic {
         padding: 2rem;
       }
-      .social-button {
-        padding: 0.875rem 1.5rem;
-        font-size: 1rem;
-      }
       h2 {
         font-size: 2rem;
-      }
-      #google-button {
-        max-width: 100%;
-        overflow: hidden;
-      }
-      #google-button > div {
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-      #google-button iframe {
-        width: 100% !important;
-        max-width: 100% !important;
       }
     }
   </style>
@@ -215,30 +185,42 @@
   <section class="min-h-screen flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
     <div class="max-w-lg w-full mx-auto">
       <div class="glassmorphic rounded-2xl shadow-2xl p-10">
-        <h2 class="text-4xl font-extrabold text-blue-900 text-center mb-8 text-high-contrast">Sign In to Birdy</h2>
-        <form id="signinForm" class="space-y-10">
-          <!-- Social Login Options -->
-          <div class="text-center">
-            <p class="text-gray-600 mb-6 text-high-contrast font-semibold text-lg">Choose a login method below</p>
-            <div class="flex flex-col space-y-6">
-              <div id="google-button" class="w-full"></div>
-              <button id="facebookSignIn" class="social-button facebook">
-                <i class="fab fa-facebook-f"></i>
-                <span>Sign in with Facebook</span>
-                <div id="facebookSpinner" class="loading-spinner"></div>
-              </button>
-            </div>
+        <h2 class="text-4xl font-extrabold text-orange-600 text-center mb-8 text-high-contrast">Sign In to Birdy</h2>
+        
+        <form id="otpForm" class="space-y-8">
+          <!-- Phone Number Input -->
+          <div class="text-left">
+            <label for="phoneNumber" class="block text-blue-900 font-semibold mb-2 text-lg">Phone Number for OTP code</label>
+            <input 
+              type="tel" 
+              id="phoneNumber" 
+              name="phoneNumber"
+              class="input-focus w-full"
+              placeholder="123-456-7890"
+              maxlength="12"
+              autocomplete="tel"
+            >
           </div>
-          <!-- Message Box -->
+          
+          <!-- Error/Success Message -->
           <div id="messageBox" class="message-box"></div>
+          
+          <!-- Send OTP Button -->
+          <button 
+            type="submit" 
+            id="sendOtpButton"
+            class="otp-button"
+            disabled
+          >
+            <span id="buttonText">Send me OTP</span>
+            <div id="otpSpinner" class="loading-spinner"></div>
+          </button>
         </form>
-        <!-- Links -->
-        <div class="mt-8 text-center space-y-4">
-          <!-- <p class="text-gray-600 text-sm font-medium">
-            Don't have an account? <a href="/signup" class="text-blue-600 font-semibold hover:text-blue-800 transition">Sign Up</a>
-          </p> -->
-          <p class="text-gray-600 text-sm font-medium">
-            <a href="/forgotPassword" class="text-blue-600 font-semibold hover:text-blue-800 transition">Forgot Password?</a>
+        
+        <!-- Privacy Notice -->
+        <div class="mt-8 text-center">
+          <p class="text-gray-600 text-sm font-medium leading-relaxed">
+            By providing your phone number, you agree to receive a one-time text message from Birdy for account verification. Message and data rates may apply. Message frequency varies. Reply STOP to opt-out, HELP for help. View our Privacy Policy at <a href="/privacy" class="text-blue-600 font-semibold hover:text-blue-800 transition">Birdyone.com/privacy</a>.
           </p>
         </div>
       </div>
@@ -295,130 +277,142 @@
   </footer>
 
   <script>
-    function handleCredentialResponse(response) {
-      const token = response.credential; // JWT ID token
-      console.log("ID Token:", token);
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      console.log("User Info:", payload);
-
-      // Update message box for feedback
-      const messageBox = document.getElementById('messageBox');
-      messageBox.style.display = 'block';
-      messageBox.classList.remove('error', 'success');
-      messageBox.classList.add('success');
-      messageBox.textContent = 'Google Sign-In successful, contacting backend...';
-
-      // Send to backend
-      fetch('https://xmkvtmgtwb.execute-api.us-east-1.amazonaws.com/dev/auth/google/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ idToken: token })
-      })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error('Failed to sign in with Google');
+    // Phone number formatting function
+    function formatPhoneNumber(value) {
+      // Remove all non-digit characters
+      const digits = value.replace(/\D/g, '');
+      
+      // Limit to 10 digits
+      if (digits.length > 10) {
+        return value.substring(0, 12); // Keep format XXX-XXX-XXXX
+      }
+      
+      // Format as XXX-XXX-XXXX
+      let formatted = '';
+      for (let i = 0; i < digits.length && i < 10; i++) {
+        if (i === 3 || i === 6) {
+          formatted += '-';
         }
-        return res.json();
-      })
-      .then(data => {
-        console.log('✅ Backend response:', data);
-        messageBox.classList.remove('error', 'success');
-        messageBox.classList.add('success');
-        messageBox.textContent = 'Successfully signed in!';
-        localStorage.setItem('jwt', data.token);
-        localStorage.setItem('userName', payload.name || 'User'); // Fallback to 'User' if name is not available
-        setTimeout(() => {
-          window.location.href = '/dashboard';
-        }, 1000);
-      })
-      .catch(err => {
-        console.error('❌ Error sending token to backend:', err);
-        messageBox.classList.remove('error', 'success');
-        messageBox.classList.add('error');
-        messageBox.textContent = 'Error signing in: ' + err.message;
-      });
+        formatted += digits[i];
+      }
+      
+      return formatted;
     }
 
-    function renderGoogleButton() {
-      if (typeof google === 'undefined' || !google.accounts || !google.accounts.id) {
-        console.error('Google Sign-In script failed to load');
-        const messageBox = document.getElementById('messageBox');
-        messageBox.style.display = 'block';
-        messageBox.classList.remove('success');
-        messageBox.classList.add('error');
-        messageBox.textContent = 'Google Sign-In failed to load. Please try again later.';
-        // Fallback: Display a manual Google Sign-In button
-        const googleButtonDiv = document.getElementById('google-button');
-        googleButtonDiv.innerHTML = `
-          <button class="social-button google" onclick="google.accounts.id.prompt()">
-            <i class="fab fa-google"></i>
-            <span>Sign in with Google</span>
-          </button>
-        `;
+    // Check if phone number is valid (10 digits)
+    function isValidPhoneNumber(value) {
+      const digits = value.replace(/\D/g, '');
+      return digits.length === 10;
+    }
+
+    // DOM elements
+    const phoneNumberInput = document.getElementById('phoneNumber');
+    const sendOtpButton = document.getElementById('sendOtpButton');
+    const otpForm = document.getElementById('otpForm');
+    const messageBox = document.getElementById('messageBox');
+    const buttonText = document.getElementById('buttonText');
+    const otpSpinner = document.getElementById('otpSpinner');
+
+    // Format phone number as user types
+    phoneNumberInput.addEventListener('input', function(e) {
+      const formatted = formatPhoneNumber(e.target.value);
+      e.target.value = formatted;
+      
+      // Enable/disable button based on validity
+      sendOtpButton.disabled = !isValidPhoneNumber(formatted);
+      
+      // Clear any previous messages when typing
+      if (messageBox.style.display === 'block') {
+        messageBox.style.display = 'none';
+      }
+    });
+
+    // Handle form submission
+    otpForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const phoneNumber = phoneNumberInput.value;
+      
+      if (!isValidPhoneNumber(phoneNumber)) {
+        showMessage('Please enter a valid 10-digit phone number', 'error');
         return;
       }
 
-      google.accounts.id.initialize({
-        client_id: '299309099963-5sodtstum7m95l0siojj3a5ruacdv9tg.apps.googleusercontent.com',
-        callback: handleCredentialResponse,
-      });
+      // Show loading state
+      setLoading(true);
+      
+      // Prepare phone number with +1 prefix
+      const cleanedNumber = phoneNumber.replace(/\D/g, '');
+      const finalNumber = '+1' + cleanedNumber;
+      
+      try {
+        const response = await fetch('https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/send-otp-aws', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            phoneNumber: finalNumber
+          })
+        });
 
-      // Calculate button width based on screen size
-      const buttonWidth = window.innerWidth <= 640 ? Math.min(window.innerWidth - 40, 400) : 400;
-
-      google.accounts.id.renderButton(
-        document.getElementById('google-button'),
-        {
-          theme: 'outline',
-          size: 'large',
-          width: buttonWidth,
-          text: 'signin_with',
-          shape: 'rectangular',
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to send OTP');
         }
-      );
 
-      // Ensure the button is rendered again on window resize
-      window.addEventListener('resize', () => {
-        const newWidth = window.innerWidth <= 640 ? Math.min(window.innerWidth - 40, 400) : 400;
-        google.accounts.id.renderButton(
-          document.getElementById('google-button'),
-          {
-            theme: 'outline',
-            size: 'large',
-            width: newWidth,
-            text: 'signin_with',
-            shape: 'rectangular',
-          }
-        );
-      });
+        const data = await response.json();
+        
+        // Store phone number for OTP verification
+        localStorage.setItem('phoneNumber', phoneNumber);
+        
+        // Show success message
+        showMessage('OTP sent successfully! Redirecting to verification...', 'success');
+        
+        // Redirect to OTP verification page after 1.5 seconds
+        setTimeout(() => {
+          window.location.href = `/verifyOtp?phone=${encodeURIComponent(phoneNumber)}`;
+        }, 1500);
+        
+      } catch (error) {
+        console.error('Error sending OTP:', error);
+        showMessage(error.message || 'Failed to send OTP. Please try again.', 'error');
+        setLoading(false);
+      }
+    });
+
+    // Show message (error or success)
+    function showMessage(message, type) {
+      messageBox.textContent = message;
+      messageBox.className = `message-box ${type}`;
+      messageBox.style.display = 'block';
+      
+      // Auto-hide success messages after 3 seconds
+      if (type === 'success') {
+        setTimeout(() => {
+          messageBox.style.display = 'none';
+        }, 3000);
+      }
     }
 
-    window.onload = function () {
-      // Delay rendering to ensure Google script is loaded
-      setTimeout(renderGoogleButton, 1000);
-    };
+    // Set loading state
+    function setLoading(loading) {
+      if (loading) {
+        sendOtpButton.disabled = true;
+        buttonText.textContent = 'Sending...';
+        otpSpinner.style.display = 'inline-block';
+      } else {
+        sendOtpButton.disabled = false;
+        buttonText.textContent = 'Send me OTP';
+        otpSpinner.style.display = 'none';
+      }
+    }
 
-    // Optional: Mobile menu toggle
+    // Mobile menu toggle
     document.getElementById('menu-toggle').addEventListener('click', () => {
       const mobileMenu = document.getElementById('mobile-menu');
       mobileMenu.classList.toggle('hidden');
     });
-
-
-
-    
   </script>
-  
-
-  <!-- zustand -->
-
-    
-
-    <script src="https://unpkg.com/zustand@4.5.5/dist/zustand.umd.js"></script>
-    <script src="../static/js/authStore.js"></script>
-    <script src="../static/js/login.js"></script>
-
 </body>
 </html>
