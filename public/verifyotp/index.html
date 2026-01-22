@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Birdy - Sign In</title>
+  <title>Birdy - Verify OTP</title>
   
   <link rel="icon" href="../static/logo/birdy-1024.png" type="image/png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <style>
     @font-face {
       font-family: 'Nunito';
@@ -22,18 +22,6 @@
       font-weight: 700;
       font-style: normal;
     }
-    @font-face {
-      font-family: 'Nunito';
-      src: url('/themes/fonts/Nunito/Nunito-ExtraBold.ttf') format('truetype');
-      font-weight: 800;
-      font-style: normal;
-    }
-    @font-face {
-      font-family: 'Nunito';
-      src: url('/themes/fonts/Nunito/Nunito-SemiBold.ttf') format('truetype');
-      font-weight: 600;
-      font-style: normal;
-    }
     html, body {
       font-family: 'Nunito', sans-serif;
       line-height: 1.6;
@@ -42,54 +30,126 @@
       overflow-x: hidden;
     }
     .glassmorphic {
-      background: rgba(255, 255, 255, 0.9); /* Higher opacity for clarity */
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
       position: relative;
       z-index: 1;
+      padding: 3rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    
-    /* .input-focus {
+    .glassmorphic:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+    .input-focus {
       transition: all 0.3s ease;
-      background: #FFFFFF !important; 
-      color: #1e3a8a !important; 
-      border: 2px solid #4b5563 !important; 
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important; 
-      padding: 12px !important;
-      font-size: 16px !important;
-    } */
-     .input-focus {
-        transition: all 0.3s ease;
-        background: #FFFFFF !important; /* Tailwind gray-100 */
-        color: #1e3a8a; /* Ensure text is readable */
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* More subtle, darker shadow */
-}
-
+      background: #ffffff !important;
+      color: #1e3a8a !important;
+      border: 4px solid #f97316 !important;
+      border-radius: 1.25rem;
+      padding: 1.5rem 2rem;
+      font-size: 3rem;
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: 0.75rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      display: block;
+      min-height: 100px;
+      line-height: 1.2;
+    }
+    .input-focus::placeholder {
+      color: #9ca3af;
+      font-weight: 600;
+    }
     .input-focus:focus {
-      transform: scale(1.01);
-      box-shadow: 0 0 16px rgba(30, 58, 138, 0.6) !important;
-      border-color: #1e3a8a !important;
+      transform: scale(1.03);
+      box-shadow: 0 0 30px rgba(249, 115, 22, 0.6);
+      border-color: #f97316;
+      outline: none;
     }
     .gradient-bg {
-      background: linear-gradient(135deg, #dbeafe, #f3e8ff, #dbeafe);
+      background: linear-gradient(135deg, #dbeafe, #f3e8ff, #a5b4fc);
       background-size: 200% 200%;
-      animation: gradientAnimation 12s ease infinite;
+      animation: gradientAnimation 10s ease infinite;
     }
     @keyframes gradientAnimation {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    .text-high-contrast {
-      color: #1e3a8a;
+    .otp-button {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.125rem;
+      font-weight: 700;
+      padding: 1rem 2rem;
+      border-radius: 1.5rem;
+      transition: all 0.3s ease;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+      background: #f97316;
+      color: white;
+      border: none;
+      cursor: pointer;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    .otp-button:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+    }
+    .otp-button:disabled {
+      background: #fdba74;
+      cursor: not-allowed;
+      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
+    }
+    .loading-spinner {
+      display: none;
+      width: 1.5rem;
+      height: 1.5rem;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top: 3px solid #ffffff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-left: 0.75rem;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .message-box {
+      display: none;
+      text-align: center;
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .message-box.error {
+      background: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fca5a5;
+    }
+    .message-box.success {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid #6ee7b7;
     }
     @media (max-width: 640px) {
       .glassmorphic {
-        padding: 1.5rem;
+        padding: 2rem;
+      }
+      h2 {
+        font-size: 2rem;
       }
       .input-focus {
-        padding: 10px !important;
-        font-size: 14px !important;
+        font-size: 1.25rem;
       }
     }
   </style>
@@ -102,11 +162,8 @@
         <div class="flex-shrink-0">
           <a href="/" class="text-2xl font-extrabold text-blue-900 tracking-tight">Birdy</a>
         </div>
-        <div class="hidden md:flex space-x-8">
+        <div class="hidden md:flex space-x-8 items-center">
           <a href="/" class="text-blue-900 hover:text-blue-600 font-semibold text-lg">Home</a>
-          <!-- <a href="#features" class="text-blue-900 hover:text-blue-600 font-semibold text-lg">Features</a>
-          <a href="#faq" class="text-blue-900 hover:text-blue-600 font-semibold text-lg">FAQ</a>
-          <a href="/contact" class="text-blue-900 hover:text-blue-600 font-semibold text-lg">Contact</a> -->
         </div>
         <div class="md:hidden">
           <button id="menu-toggle" class="text-blue-900 focus:outline-none">
@@ -120,43 +177,90 @@
     <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
       <div class="px-4 pt-2 pb-3 space-y-1">
         <a href="/" class="block text-blue-900 hover:text-blue-600 font-semibold text-lg">Home</a>
-        <!-- <a href="#features" class="block text-blue-900 hover:text-blue-600 font-semibold text-lg">Features</a>
-        <a href="#faq" class="block text-blue-900 hover:text-blue-600 font-semibold text-lg">FAQ</a>
-        <a href="/contact" class="block text-blue-900 hover:text-blue-600 font-semibold text-lg">Contact</a> -->
       </div>
     </div>
   </nav>
 
-  <!-- Sign In Section -->
-  <section class="min-h-screen flex items-center justify-center py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full mx-auto">
-      <div class="glassmorphic rounded-2xl shadow-2xl p-8 sm:p-10">
-        <h2 class="text-3xl font-extrabold text-blue-900 text-center mb-6">Verify your OTP</h2>
-        <form id="signinForm" class="space-y-8">
-          <!-- Phone Sign In -->
-          <div>
+  <!-- OTP Verification Section -->
+  <section class="min-h-screen flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-lg w-full mx-auto">
+      <div class="glassmorphic rounded-2xl shadow-2xl p-10">
+        <h2 class="text-4xl font-extrabold text-orange-600 text-center mb-4">Verify your OTP</h2>
+        <p id="phoneDisplay" class="text-gray-600 text-center mb-8 text-lg"></p>
+        
+        <!-- Error/Success Message -->
+        <div id="messageBox" class="message-box"></div>
+        
+        <form id="verifyForm" class="space-y-6">
+          <!-- OTP Input -->
+          <div style="margin-bottom: 2rem;">
+            <label for="otp" class="block text-blue-900 font-semibold mb-3 text-lg">Enter OTP code</label>
+            <div style="background: white; padding: 1rem; border-radius: 1.25rem; border: 4px solid #f97316; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);">
+              <input 
+                type="text" 
+                id="otp" 
+                name="otp"
+                style="
+                  width: 100%;
+                  font-size: 3.5rem;
+                  font-weight: 900;
+                  text-align: center;
+                  letter-spacing: 0.75rem;
+                  padding: 1rem 0;
+                  border: none;
+                  outline: none;
+                  background: transparent;
+                  color: #1e3a8a;
+                  min-height: 80px;
+                "
+                placeholder="000000"
+                maxlength="6"
+                autocomplete="one-time-code"
+                pattern="[0-9]*"
+                inputmode="numeric"
+              >
+            </div>
+          </div>
           
-
-            <!-- ✅ Clean version of the phone input -->
-          <div>
-            <label for="phone" class="block text-gray-700 font-semibold mb-2">Input your OTP </label>
-            <input
-                  type="text"
-                  id="otp"
-                  maxlength="6"
-                  placeholder="0000"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-full text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 placeholder-gray-400"
-                />
-          </div>
-
-
-            <p class="text-sm text-gray-600 mt-2">By proceeding, you consent to get calls or text messages for OTP verification.</p>
-          </div>
-          <!-- Submit Button -->
-          <div>
-            <button type="submit" style="display: block; background: #2563eb; color: #FFFFFF; z-index: 9999; padding: 16px; font-size: 20px; font-weight: 700; border-radius: 9999px; width: 100%; text-align: center; margin-top: 20px;" id="signinButton">Sign In</button>
+          <!-- Verify Button -->
+          <div style="margin-top: 1.5rem; display: block; width: 100%;">
+            <button 
+              type="submit" 
+              id="verifyButton" 
+              style="
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                width: 100% !important;
+                padding: 1rem 2rem;
+                font-size: 1.125rem;
+                font-weight: 700;
+                border-radius: 1.5rem;
+                border: none;
+                background: #f97316 !important;
+                color: white !important;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+                transition: all 0.3s ease;
+                visibility: visible !important;
+                opacity: 1 !important;
+              "
+            >
+              <span id="buttonText">Verify OTP</span>
+              <span id="otpSpinner" class="loading-spinner" style="display: none; margin-left: 0.5rem;"></span>
+            </button>
           </div>
         </form>
+        
+        <!-- Resend OTP -->
+        <div class="mt-8 text-center">
+          <p class="text-gray-600 text-sm font-medium">
+            Didn't receive the code? 
+            <button type="button" id="resendButton" class="text-blue-600 font-semibold hover:text-blue-800 transition ml-1">
+              Resend OTP
+            </button>
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -173,38 +277,12 @@
           <h3 class="text-2xl font-bold mb-4">Quick Links</h3>
           <ul class="space-y-2 font-light text-lg">
             <li><a href="/" class="hover:text-blue-300">Home</a></li>
-            <li><a href="/contact" class="hover:text-blue-300">Contact</a></li>
             <li><a href="/privacy" class="hover:text-blue-300">Privacy</a></li>
-            <li><a href="/Drivers" class="hover:text-blue-300">Drivers</a></li>
-            <li><a href="/Riders" class="hover:text-blue-300">Riders</a></li>
           </ul>
         </div>
         <div>
           <h3 class="text-2xl font-bold mb-4">Contact Us</h3>
-          <p class="font-light text-lg">
-  Email: <a href="mailto:getabirdy@gmail.com" class="text-blue-600 hover:underline">getabirdy@gmail.com</a>
-</p>
-          
-        </div>
-        <div>
-          <h3 class="text-2xl font-bold mb-4">Follow Us</h3>
-          <div class="flex space-x-4 mb-4">
-            <a href="https://www.tiktok.com/@birdyapp" target="_blank" class="text-white hover:text-blue-300 transition">
-              <i class="fab fa-tiktok text-2xl"></i>
-            </a>
-            <a href="https://x.com/GetABirdy" target="_blank" class="text-white hover:text-blue-300 transition">
-              <i class="fab fa-x-twitter text-2xl"></i>
-            </a>
-            <a href="https://www.instagram.com/getbirdy/" target="_blank" class="text-white hover:text-blue-300 transition">
-              <i class="fab fa-instagram text-2xl"></i>
-            </a>
-            <a href="https://www.facebook.com/birdyapp" target="_blank" class="text-white hover:text-blue-300 transition">
-              <i class="fab fa-facebook-f text-2xl"></i>
-            </a>
-          </div>
-          <button id="share-button" class="bg-blue-600 text-white font-semibold px-4 py-2 rounded-full hover:bg-blue-700 transition-all duration-300 flex items-center">
-            <i class="fas fa-share-alt mr-2"></i> Share Birdy
-          </button>
+          <p class="font-light text-lg">Email: support@Birdy.com</p>
         </div>
       </div>
       <div class="mt-8 text-center">
@@ -213,97 +291,175 @@
     </div>
   </footer>
 
-
-     <!-- Load config first -->
-      <script src="../config.js"></script>
-
-      <!-- Then load login logic -->
-      <script src="../login.js"></script>
-
-
-
   <!-- JavaScript -->
   <script>
-  // On DOM Ready
-  document.addEventListener('DOMContentLoaded', () => {
-    const signInButton = document.getElementById('signinButton');
+    // DOM elements
     const otpInput = document.getElementById('otp');
-    console.log('OTP Button:', signInButton);
-    console.log('OTP Input:', otpInput);
-  });
+    const verifyButton = document.getElementById('verifyButton');
+    const otpSpinner = document.getElementById('otpSpinner');
+    const buttonText = document.getElementById('buttonText');
+    const messageBox = document.getElementById('messageBox');
+    const phoneDisplay = document.getElementById('phoneDisplay');
+    const resendButton = document.getElementById('resendButton');
+    const verifyForm = document.getElementById('verifyForm');
 
-  // Get phone number from URL query param
-  const params = new URLSearchParams(window.location.search);
-  const phone = params.get("phone");
+    // Get phone number from URL query param
+    const params = new URLSearchParams(window.location.search);
+    const phone = params.get("phone");
 
-  // Form Submission
-  document.getElementById('signinForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const otp = document.getElementById('otp').value.trim();
-
-    try {
-      const res = await fetch('https://xmkvtmgtwb.execute-api.us-east-1.amazonaws.com/dev/auth/verify-otp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ phoneNumber: phone, otp: otp }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        alert(data.message || 'OTP verified!');
-        // Redirect to dashboard or home
-        window.location.href = '/dashboard';
-      } else {
-        alert(data.message || 'Invalid OTP. Try again.');
-      }
-    } catch (error) {
-      console.error('Error verifying OTP:', error);
-      alert('Something went wrong. Please try again.');
+    // Display phone number
+    if (phone) {
+      phoneDisplay.textContent = `Enter the 6-digit code sent to ${phone}`;
+    } else {
+      // If no phone number, redirect back to login
+      window.location.href = '/login';
     }
-  });
 
+    // Validate OTP (6 digits)
+    function isValidOTP(value) {
+      return /^\d{6}$/.test(value);
+    }
 
-    
+    // Enable/disable verify button based on OTP validity
+    otpInput.addEventListener('input', function(e) {
+      const value = e.target.value.replace(/\D/g, '').substring(0, 6);
+      e.target.value = value;
+      
+      verifyButton.disabled = !isValidOTP(value);
+      
+      // Clear any previous messages when typing
+      if (messageBox.style.display === 'block') {
+        messageBox.style.display = 'none';
+      }
+    });
+
+    // Show message (error or success)
+    function showMessage(message, type) {
+      messageBox.textContent = message;
+      messageBox.className = `message-box ${type}`;
+      messageBox.style.display = 'block';
+      
+      // Auto-hide success messages after 3 seconds
+      if (type === 'success') {
+        setTimeout(() => {
+          messageBox.style.display = 'none';
+        }, 3000);
+      }
+    }
+
+    // Set loading state
+    function setLoading(loading) {
+      if (loading) {
+        verifyButton.disabled = true;
+        buttonText.textContent = 'Verifying...';
+        otpSpinner.style.display = 'inline-block';
+      } else {
+        verifyButton.disabled = !isValidOTP(otpInput.value);
+        buttonText.textContent = 'Verify OTP';
+        otpSpinner.style.display = 'none';
+      }
+    }
+
+    // Form Submission - Verify OTP
+    verifyForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const otp = otpInput.value.trim();
+      
+      if (!isValidOTP(otp)) {
+        showMessage('Please enter a valid 6-digit OTP code', 'error');
+        return;
+      }
+
+      // Show loading state
+      setLoading(true);
+      
+      try {
+        const res = await fetch('https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/auth/verify-otp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            phoneNumber: phone,
+            otp: otp
+          })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || 'Invalid OTP code');
+        }
+
+        // Store JWT token and user info
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
+          localStorage.setItem('userPhone', phone);
+          if (data.user) {
+            localStorage.setItem('user', JSON.stringify(data.user));
+          }
+        }
+
+        // Show success message
+        showMessage('OTP verified successfully! Redirecting to dashboard...', 'success');
+        
+        // Redirect to dashboard after 1.5 seconds
+        setTimeout(() => {
+          window.location.href = '/dashboard';
+        }, 1500);
+        
+      } catch (error) {
+        console.error('Error verifying OTP:', error);
+        showMessage(error.message || 'Failed to verify OTP. Please try again.', 'error');
+        setLoading(false);
+      }
+    });
+
+    // Resend OTP
+    resendButton.addEventListener('click', async function() {
+      resendButton.disabled = true;
+      resendButton.textContent = 'Sending...';
+      
+      try {
+        const cleanedNumber = phone.replace(/\D/g, '');
+        const finalNumber = '+1' + cleanedNumber;
+        
+        const res = await fetch('https://j93i644n3g.execute-api.us-east-1.amazonaws.com/dev/send-otp-aws', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            phoneNumber: finalNumber
+          })
+        });
+
+        if (!res.ok) {
+          throw new Error('Failed to resend OTP');
+        }
+
+        showMessage('New OTP code sent successfully!', 'success');
+        
+      } catch (error) {
+        console.error('Error resending OTP:', error);
+        showMessage('Failed to resend OTP. Please try again.', 'error');
+      } finally {
+        resendButton.disabled = false;
+        resendButton.textContent = 'Resend OTP';
+      }
+    });
+
+    // Mobile menu toggle
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
 
     // GSAP Animations
     gsap.from(".glassmorphic", { opacity: 0, y: 50, duration: 1, ease: "power3.out" });
-    gsap.from("#phone", { opacity: 0, y: 20, duration: 0.8, delay: 0.5 });
-    gsap.from("#signinButton", { opacity: 0, y: 20, duration: 0.8, delay: 0.7 });
-
-    // Social Sharing
-    document.getElementById('share-button').addEventListener('click', async () => {
-      const shareData = {
-        title: 'Birdy - Your Trusted Ride',
-        text: 'Join Birdy and connect directly with trusted drivers for safe, affordable rides!',
-        url: 'https://getbirdy.co'
-      };
-      try {
-        if (navigator.share) {
-          await navigator.share(shareData);
-        } else {
-          navigator.clipboard.writeText(shareData.url).then(() => {
-            alert('Link copied to clipboard! Share it with your friends.');
-          }).catch(() => {
-            alert('Failed to copy link. Please copy this URL: ' + shareData.url);
-          });
-        }
-      } catch (err) {
-        console.error('Share failed:', err);
-        navigator.clipboard.writeText(shareData.url).then(() => {
-          alert('Link copied to clipboard! Share it with your friends.');
-        }).catch(() => {
-          alert('Failed to copy link. Please copy this URL: ' + shareData.url);
-        });
-      }
-    });
-
-    // Prevent zoom on input focus for better mobile experience
-    document.addEventListener('gesturestart', function (e) {
-      e.preventDefault();
-    });
+    gsap.from("#otp", { opacity: 0, y: 20, duration: 0.8, delay: 0.5 });
+    gsap.from("#verifyButton", { opacity: 0, y: 20, duration: 0.8, delay: 0.7 });
   </script>
 </body>
 </html>
