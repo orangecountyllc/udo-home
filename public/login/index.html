@@ -346,6 +346,9 @@
       const cleanedNumber = phoneNumber.replace(/\D/g, '');
       const finalNumber = '+1' + cleanedNumber;
       
+      console.log('Sending OTP to:', finalNumber);
+      console.log('API URL:', `${API_BASE}send-otp-aws`);
+      
       try {
         const response = await fetch(`${API_BASE}send-otp-aws`, {
           method: 'POST',
@@ -357,12 +360,33 @@
           })
         });
 
+        console.log('Response status:', response.status);
+        console.log('Response ok:', response.ok);
+
+        // Get response text first to see what we received
+        const responseText = await response.text();
+        console.log('Response text:', responseText);
+
         if (!response.ok) {
-          const errorData = await response.json();
+          let errorData;
+          try {
+            errorData = JSON.parse(responseText);
+          } catch (e) {
+            console.error('Failed to parse error JSON:', e);
+            throw new Error(`Server error: ${response.status} - ${responseText.substring(0, 100)}`);
+          }
           throw new Error(errorData.message || 'Failed to send OTP');
         }
 
-        const data = await response.json();
+        let data;
+        try {
+          data = JSON.parse(responseText);
+        } catch (e) {
+          console.error('Failed to parse JSON:', e);
+          throw new Error(`Invalid response from server: ${responseText.substring(0, 100)}`);
+        }
+        
+        console.log('Parsed data:', data);
         
         // Store phone number for OTP verification
         localStorage.setItem('phoneNumber', phoneNumber);
@@ -377,6 +401,7 @@
         
       } catch (error) {
         console.error('Error sending OTP:', error);
+        console.error('Error details:', error.stack);
         showMessage(error.message || 'Failed to send OTP. Please try again.', 'error');
         setLoading(false);
       }
