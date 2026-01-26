@@ -109,7 +109,17 @@
 <body class="bg-gradient-to-b from-blue-50 to-white min-h-screen">
   <header class="bg-blue-600 text-white py-6 shadow-lg">
     <div class="container mx-auto px-4">
-      <h1 class="text-4xl font-extrabold text-center">User Directory</h1>
+      <div class="flex justify-between items-center">
+        <h1 class="text-4xl font-extrabold">User Directory</h1>
+        <div class="flex gap-3">
+          <button id="iclient-notify-btn" class="bg-white text-blue-600 hover:bg-gray-100 font-bold py-2 px-4 rounded transition-colors">
+            iClient
+          </button>
+          <button id="ipro-notify-btn" class="bg-white text-blue-600 hover:bg-gray-100 font-bold py-2 px-4 rounded transition-colors">
+            iPro
+          </button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -691,6 +701,48 @@
         });
         renderUsers(filteredUsers);
       });
+
+      // Push notification button handlers
+      const iclientNotifyBtn = document.getElementById('iclient-notify-btn');
+      const iproNotifyBtn = document.getElementById('ipro-notify-btn');
+
+      async function sendPushNotification(target) {
+        const btn = target === 'iClient' ? iclientNotifyBtn : iproNotifyBtn;
+        const originalText = btn.textContent;
+        
+        // Show loading state
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        try {
+          const response = await fetch(`${API_BASE}admin/send-push-notification`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              target: target
+            })
+          });
+
+          if (!response.ok) {
+            throw new Error(`Failed to send push notification: ${response.status}`);
+          }
+
+          const data = await response.json();
+          alert(`✅ ${data.message}`);
+        } catch (error) {
+          console.error('Error sending push notification:', error);
+          alert(`❌ Failed to send push notification: ${error.message}`);
+        } finally {
+          // Reset button state
+          btn.disabled = false;
+          btn.textContent = originalText;
+        }
+      }
+
+      iclientNotifyBtn.addEventListener('click', () => sendPushNotification('iClient'));
+      iproNotifyBtn.addEventListener('click', () => sendPushNotification('iPro'));
 
       fetch(apiUrl)
         .then(response => response.ok ? response.json() : Promise.reject(`HTTP error! status: ${response.status}`))
